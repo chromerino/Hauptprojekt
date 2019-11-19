@@ -22,16 +22,16 @@ public class Stamina : MonoBehaviour
     void FixedUpdate()
     {
         
-        if(Input.GetButtonDown("Test1")){
+        if(Input.GetButtonDown("Vertical")){
            mode=0;
         }
-        if(Input.GetButtonDown("Test2")){
+        if(Input.GetButtonDown("Horizontal")){
            mode=1;
         }
-        if(Input.GetButtonDown("Test3")){
+        if(Input.GetButtonDown("Fire1")){
            mode=2;
         }
-        if(Input.GetButtonDown("Test4")){
+        if(Input.GetButtonDown("Fire2")){
            mode=3;
         }
        
