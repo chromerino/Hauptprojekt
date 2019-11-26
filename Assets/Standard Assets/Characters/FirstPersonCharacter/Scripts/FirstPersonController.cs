@@ -11,6 +11,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
     public class FirstPersonController : MonoBehaviour
     {
         [SerializeField] private bool m_IsWalking;
+
+/* 
+        public bool playerIsWalking;
+        public bool playerIsRunning;
+        public bool playerCrouching;
+        public bool playerIsStanding;
+*/
+
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
