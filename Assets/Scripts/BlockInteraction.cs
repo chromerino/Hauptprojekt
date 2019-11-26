@@ -14,7 +14,7 @@ public class BlockInteraction : MonoBehaviour
     /// Placing a block is done with a right click.
     /// A left click damages blocks, which got hit by a raycast.
     /// </summary>
-	void Update ()
+	/*void Update ()
     {
 		if(Input.GetKeyDown("1"))
 			buildtype = Block.BlockType.SAND;
@@ -97,4 +97,5 @@ public class BlockInteraction : MonoBehaviour
 		   	}
    		}
 	}
+	 */
 }
