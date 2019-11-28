@@ -225,6 +225,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  firstPersonObject: {fileID: 8354284061475084103}
 --- !u!54 &8354284060423987571
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8354284060423987575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db4656d1053664fe3b0824bf308aaf55, type: 3}
   m_Name: 
@@ -458,7 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneGuid: 
-  _serializerGuid: ff1cddd0-0762-4bec-be07-175b00e3e054
+  _serializerGuid: d9c5e788-3119-431f-a329-d0cf9b074721
   _prefabId: 1
   _updateRate: 1
   _autoFreezeProxyFrames: 0
