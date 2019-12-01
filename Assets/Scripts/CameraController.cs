@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public Vector3 targetOffset;
     public float distance = 5.0f;
+
+    public GameObject playerCube;
     public float maxDistance = 100;
     public float minDistance = .6f;
     public float xSpeed = 200.0f;
@@ -99,6 +101,8 @@ public class CameraController : MonoBehaviour
         // calculate position based on the new currentDistance 
         position = target.position - (rotation * Vector3.forward * currentDistance + targetOffset);
         transform.position = position;
+        playerCube.transform.position=position;
+
     }
  
     private static float ClampAngle(float angle, float min, float max)
