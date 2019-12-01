@@ -12,13 +12,15 @@ public class World : MonoBehaviour
 	public GameObject player;
 	public Material textureAtlas;
 	public Material fluidTexture;
-	public static int columnHeight = 16;
+	public static int columnHeight = 5;
 	public static int chunkSize = 8;
+	public static int worldSize = 10;
 	public static int radius = 3;
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
-
+	public static int spawnPosX;
+	public static int spawnPosZ;
 	public static bool firstbuild = true;
 
 	public static CoroutineQueue queue;
@@ -28,7 +30,7 @@ public class World : MonoBehaviour
     /// <summary>
     /// Creates a name for the chunk based on its position
     /// </summary>
-    /// <param name="v">Position of tje chunk</param>
+    /// <param name="v">Position of the chunk</param>
     /// <returns>Returns a string witht he chunk's name</returns>
 	public static string BuildChunkName(Vector3 v)
 	{
@@ -85,6 +87,7 @@ public class World : MonoBehaviour
         else
             return null;
     }
+	
 
     /// <summary>
     /// Instantiates a new chunk at a specified location.
@@ -213,38 +216,97 @@ public class World : MonoBehaviour
     /// </summary>
 	void Start ()
     {
+	/*
 		Vector3 ppos = player.transform.position;
 		player.transform.position = new Vector3(ppos.x,
-											Utils.GenerateHeight(ppos.x,ppos.z) + 1,
+											Noise.GenerateHeight(ppos.x,ppos.z) + 2,
 											ppos.z);
 		lastbuildPos = player.transform.position;
 		player.SetActive(false);
-
+		*/
 		firstbuild = true;
 		chunks = new ConcurrentDictionary<string, Chunk>();
+		/*
 		this.transform.position = Vector3.zero;
 		this.transform.rotation = Quaternion.identity;	
-
-		queue = new CoroutineQueue(maxCoroutines, StartCoroutine);
-
-		// Build starting chunk
+		*/
+		
+		spawnPosX=worldSize*chunkSize/2;
+		spawnPosZ=worldSize*chunkSize/2;
+		
+		
+		Vector3 ppos = player.transform.position;
+		player.transform.position = new Vector3(spawnPosX,
+											Noise.GenerateHeight(spawnPosX,spawnPosZ) + 2,
+											spawnPosZ);
+											player.SetActive(false);
 		BuildChunkAt((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize));
+											DrawChunks();
+											
+											for(int y=0; y<columnHeight; y++){
+													   BuildChunkAt(spawnPosX/chunkSize,y,spawnPosZ/chunkSize);
+													   }
+											DrawChunks();
+
+											queue = new CoroutineQueue(maxCoroutines, StartCoroutine);
+
+											for(int x=0; x<worldSize; x++){
+												for(int z=0; z<worldSize; z++){
+													for(int y=0; y<columnHeight; y++){
+													   BuildChunkAt(x,y,z);
+													   }
+
+											
+												}
+											
+
+											}
+	    
+
 		// Draw starting chunk
 		queue.Run(DrawChunks());
+		
+											
+	
 
+		/*
 		// Create further chunks
 		queue.Run(BuildRecursiveWorld((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize),radius,radius));
+											*/
 	}
 	
     /// <summary>
     /// Unity lifecycle update method. Actviates the player's GameObject. Updates chunks based on the player's position.
     /// </summary>
-	void Update ()
+	void Update (){
+	/*
+	if(!player.activeSelf)
+		{
+			player.SetActive(true);	
+			firstbuild = false;
+		}
+	
+		Vector3 chunkPosition = new Vector3(spawnPosX/chunkSize,y,spawnPosZ/chunkSize);
+					
+		string n = BuildChunkName(chunkPosition);
+		Chunk c;
+
+		if(!chunks.TryGetValue(n, out c))
     {
+	if(ChunkStatus.DONE){
+		player.SetActive(true);
+	}
+	*/
+	if(Time.time>=15)
+		{
+			player.SetActive(true);	
+		
+		}
+	/*
         // Determine whether to build/load more chunks around the player's location
 		Vector3 movement = lastbuildPos - player.transform.position;
 
@@ -264,5 +326,8 @@ public class World : MonoBehaviour
         // Draw new chunks and removed deprecated chunks
 		queue.Run(DrawChunks());
 		queue.Run(RemoveOldChunks());
+	*/
 	}
+	
+	
 }

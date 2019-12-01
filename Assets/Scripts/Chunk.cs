@@ -145,6 +145,7 @@ public class Chunk
 					int worldZ = (int)(z + chunk.transform.position.z);
 
                     // Load chunk from file
+					/*
 					if(dataFromFile)
 					{
 						chunkData[x,y,z] = new Block(bd.matrix[x, y, z], pos, 
@@ -200,6 +201,13 @@ public class Chunk
 					if(chunkData[x,y,z].blockType != Block.BlockType.WATER && Utils.fBM3D(worldX, worldY, worldZ, 0.1f, 3) < 0.42f)
 						chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, 
 						                chunk.gameObject, this);
+										*/
+					int surfaceHeight = Noise.GenerateHeight(worldX,worldZ);
+					if(0<= worldY && worldY<= surfaceHeight){
+						chunkData[x,y,z] = new Block(Block.BlockType.STONE, pos, chunk.gameObject, this);
+						}else{
+						chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
+						}
 
 					status = ChunkStatus.DRAW;
 				}
@@ -225,6 +233,7 @@ public class Chunk
     /// </summary>
 	public void DrawChunk()
 	{
+	/*
 		if(!treesCreated)
 		{
 			for(int z = 0; z < World.chunkSize; z++)
@@ -235,6 +244,7 @@ public class Chunk
 					}
 			treesCreated = true;		
 		}
+		*/
 		for(int z = 0; z < World.chunkSize; z++)
 			for(int y = 0; y < World.chunkSize; y++)
 				for(int x = 0; x < World.chunkSize; x++)
@@ -350,4 +360,26 @@ public class Chunk
      		GameObject.Destroy(quad.gameObject);
  		}
 	}
+	/*
+	void GenerateVirtualMap(){
+		for(int x=0; x < World.chunkSize; x++){
+			for(int y=0; y<World.chunkSize; y++){
+				for(int z=0; z<World.chunkSize; z++){
+				    int offset = 5 * World.chunkSize;
+					int worldX=(int)(x+chunkObj.transform.position.x);
+					int worldY=(int)((y+offset)+chunkObj.transform.position.y);
+					int worldZ=(int)(z+chunkObj.transform.position.z);
+
+					if(worldY == Noise.GenerateHeight(worldX, worldZ)){
+						matrix[x,y,z]=Block.BlockType.STONE;
+					}
+					else{
+						matrix[x,y,z]=Block.BlockType.AIR;
+					}
+
+				}
+			}
+		}
+	}
+	*/
 }
