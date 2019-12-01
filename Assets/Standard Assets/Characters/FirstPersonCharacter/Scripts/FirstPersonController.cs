@@ -49,6 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!entity.IsOwner)
             {
                 Destroy(firstPersonObject);
+                Destroy(GetComponent<Rigidbody>());
             }
             else
             {
@@ -76,7 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public override void SimulateOwner()
         {
-            Update();
+            if(entity.IsOwner) Update();
         }
 
         private void Update()
