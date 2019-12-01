@@ -28,6 +28,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField] private GameObject firstPersonObject;
+        [SerializeField] private GameObject thirdPersonModell;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -48,6 +49,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!entity.IsOwner)
             {
                 Destroy(firstPersonObject);
+            }
+            else
+            {
+                Destroy(thirdPersonModell);
             }
             state.SetTransforms(state.transform, transform);
             Start();
