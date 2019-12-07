@@ -20,7 +20,7 @@ public class PlayerStartScript : MonoBehaviour
     {
         if (Time.time > time + 15)
         {
-            character.transform.position = startPosition;
+            //character.transform.position = startPosition;
             Destroy(GetComponent<PlayerStartScript>());
         }
     }

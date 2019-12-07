@@ -239,7 +239,7 @@ public class World : MonoBehaviour
 		player.transform.position = new Vector3(spawnPosX,
 											Noise.GenerateHeight(spawnPosX,spawnPosZ) + 2,
 											spawnPosZ);
-											//player.SetActive(false);
+											player.SetActive(false);
 		BuildChunkAt((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize));
@@ -303,7 +303,7 @@ public class World : MonoBehaviour
 	*/
 	if(Time.time>=15)
 		{
-			//player.SetActive(true);	
+			player.SetActive(true);	
 		
 		}
 	/*
