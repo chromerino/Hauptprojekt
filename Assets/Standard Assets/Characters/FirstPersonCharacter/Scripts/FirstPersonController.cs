@@ -58,17 +58,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 Destroy(firstPersonObject);
                 Destroy(GetComponent<Rigidbody>());
+                Destroy(GetComponent<FirstPersonController>());
             }
             else
             {
                 Destroy(thirdPersonModell);
             }
             state.SetTransforms(state.transform, transform);
-            Start();
+            OldStart();
         }
 
 
-        private void Start()
+        private void OldStart()
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
@@ -85,10 +86,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public override void SimulateOwner()
         {
-            if(entity.IsOwner) Update();
+            if(entity.IsOwner) OldUpdate();
         }
 
-        private void Update()
+        private void OldUpdate()
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
