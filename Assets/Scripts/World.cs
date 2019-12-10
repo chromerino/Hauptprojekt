@@ -25,6 +25,8 @@ public class World : MonoBehaviour
 
 	public static CoroutineQueue queue;
 
+	public bool arenaIsReady=false; 
+
 	public Vector3 lastbuildPos;
 
     /// <summary>
@@ -95,6 +97,23 @@ public class World : MonoBehaviour
     /// <param name="x">y position of the chunk</param>
     /// <param name="y">y position of the chunk</param>
     /// <param name="z">z position of the chunk</param>
+    private Chunk GetChunk(int x, int y, int z){
+		Vector3 chunkPosition = new Vector3(x*chunkSize, 
+											y*chunkSize, 
+											z*chunkSize);
+											string n = BuildChunkName(chunkPosition);
+        Chunk temp;
+		chunks.TryGetValue(n, out temp);
+
+
+		return temp;
+	}
+	private bool getChunkReady(int x, int y, int z){
+		Chunk c=GetChunk(x,y,z);
+		
+		return c.status==Chunk.ChunkStatus.DONE;
+	}
+
 	private void BuildChunkAt(int x, int y, int z)
 	{
 		Vector3 chunkPosition = new Vector3(x*chunkSize, 
@@ -301,11 +320,36 @@ public class World : MonoBehaviour
 		player.SetActive(true);
 	}
 	*/
-	if(Time.time>=15)
+Vector3 ppos = player.transform.position;
+    if(!arenaIsReady){
+		bool fail=false;
+		for(int x=0; x<worldSize; x++){
+		    for(int z=0; z<worldSize; z++){
+		        for(int y=0; y<columnHeight; y++){
+					if(!getChunkReady(x,y,z)){
+						fail=true;
+					}
+
+			
+		        }	
+		    }	
+		}
+		if(fail==false){
+			arenaIsReady=true;
+		}
+	}
+if(arenaIsReady)
 		{
 			player.SetActive(true);	
 		
 		}
+/* 
+	if(getChunkReady((int)(ppos.x/chunkSize), (int)(ppos.y/chunkSize), (int)(ppos.z/chunkSize)))
+		{
+			player.SetActive(true);	
+		
+		}
+		*/
 	/*
         // Determine whether to build/load more chunks around the player's location
 		Vector3 movement = lastbuildPos - player.transform.position;
