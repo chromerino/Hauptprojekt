@@ -37,7 +37,7 @@ class BlockData
 /// It renders the chunk and provides functionality for saving, loading and updating the chunk.
 /// </summary>
 public class Chunk
-{
+{   public bool waterOn=false;
 	public Material cubeMaterial;   // Materia for solid blocks
 	public Material fluidMaterial;  // Material for transparent blocks
 	public Block[,,] chunkData;     // 3D Array containing all blocks of the chunk
@@ -202,12 +202,15 @@ public class Chunk
 						chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, 
 						                chunk.gameObject, this);
 										*/
+										int waterlevel=Noise.getWaterLevel();
 										int floorHeight=Noise.GenerateFloorHeight(worldX,worldZ);;
 					int surfaceHeight = Noise.GenerateHeight(worldX,worldZ);
 					if(0<= worldY && worldY<= surfaceHeight && worldY >floorHeight){
 						chunkData[x,y,z] = new Block(Block.BlockType.STONE, pos, chunk.gameObject, this);
 						}else if(worldY<=floorHeight){
 						chunkData[x,y,z] = new Block(Block.BlockType.DIRT, pos, chunk.gameObject, this);
+						}else if(worldY>floorHeight && worldY>surfaceHeight && worldY<=waterlevel&& waterOn==true){
+						chunkData[x,y,z] = new Block(Block.BlockType.WATER, pos, chunk.gameObject, this);
 						}else{
 						chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
 						}
