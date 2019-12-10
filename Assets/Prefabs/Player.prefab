@@ -138,6 +138,7 @@ MonoBehaviour:
   player: {fileID: 8354284060423987575}
   textureAtlas: {fileID: 2100000, guid: 0beff685461bd4744bc433ab1599a347, type: 2}
   fluidTexture: {fileID: 2100000, guid: 033d6ae81142c4d80828ae3712a04408, type: 2}
+  arenaIsReady: 0
   lastbuildPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8354284060423987575
 GameObject:
@@ -534,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243a1f2871d5ddb40b140b0a15429dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 8354284060423987575}
+  world: {fileID: 3043415083050585780}
 --- !u!23 &1297248165387916187
 MeshRenderer:
   m_ObjectHideFlags: 0

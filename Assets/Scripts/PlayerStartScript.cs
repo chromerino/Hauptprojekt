@@ -2,26 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStartScript : MonoBehaviour
+public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
 {
-    private float time;
-    private Vector3 startPosition;
-    [SerializeField] private GameObject character;
-
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject world;
+    
+    public override void Attached()
     {
-        startPosition = character.transform.position;
-        time = Time.time;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Time.time > time + 15)
+        if(!entity.IsOwner)
         {
-            //character.transform.position = startPosition;
-            Destroy(GetComponent<PlayerStartScript>());
+            Destroy(world);
         }
     }
 }

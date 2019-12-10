@@ -9,7 +9,7 @@ static int maxHeight = 16;
 static float smooth = 0.1f;
 static int octaves = 4;
 static float persistence = 0.5f;
-static int seed = Random.Range(0,5000)*Random.Range(0,5000);
+public static int seed {get; set;}
 static int waterlevel=0;
 
 	static float Map(float newmin, float newmax, float origmin, float origmax, float value){
