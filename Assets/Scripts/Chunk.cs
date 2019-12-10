@@ -202,9 +202,12 @@ public class Chunk
 						chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, 
 						                chunk.gameObject, this);
 										*/
+										int floorHeight=Noise.GenerateFloorHeight(worldX,worldZ);;
 					int surfaceHeight = Noise.GenerateHeight(worldX,worldZ);
-					if(0<= worldY && worldY<= surfaceHeight){
+					if(0<= worldY && worldY<= surfaceHeight && worldY >floorHeight){
 						chunkData[x,y,z] = new Block(Block.BlockType.STONE, pos, chunk.gameObject, this);
+						}else if(worldY<=floorHeight){
+						chunkData[x,y,z] = new Block(Block.BlockType.DIRT, pos, chunk.gameObject, this);
 						}else{
 						chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
 						}

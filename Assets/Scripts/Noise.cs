@@ -15,8 +15,15 @@ static int seed = Random.Range(0,5000)*Random.Range(0,5000);
 	static float Map(float newmin, float newmax, float origmin, float origmax, float value){
 		return Mathf.Lerp(newmin, newmax, Mathf.InverseLerp(origmin, origmax, value));
 	}
+	public static int GenerateFloorHeight(float x, float z){
+	float height=0;
+	int maxHeightTemp=(int)(maxHeight*0.75);
+	
 
-	public static int GenerateHeight(float x, float z){
+		height += Map(0, (int) (maxHeightTemp), 0, 1, fBM((x+seed*2)*smooth/5,(z+seed*2)*smooth/5, octaves+2, persistence));
+		
+		return (int) height;
+	}	public static int GenerateHeight(float x, float z){
 	float height=0;
 	int maxHeightTemp=maxHeight;
 	if(x<=World.worldSize*World.chunkSize/20 || x>=World.worldSize*World.chunkSize/20*19 || 

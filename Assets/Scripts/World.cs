@@ -14,7 +14,7 @@ public class World : MonoBehaviour
 	public Material fluidTexture;
 	public static int columnHeight = 5;
 	public static int chunkSize = 8;
-	public static int worldSize = 10;
+	public static int worldSize = 20;
 	public static int radius = 3;
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
