@@ -15,10 +15,12 @@ public class Hearts : MonoBehaviour
     public static double MaxHealth=10;
 	public double CurrentHealth=6;
 	private Image sr;
+    public Stamina st;
+
 
 
 	void Start(){
-	
+	int i =st.getStamina();
 	if(10<MaxHealth){
 	MaxHealth=10;
     }

@@ -54,6 +54,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
 		private bool isStanding=true;
         public bool canRun=false;
+        
 
         public override void Attached()
         {
@@ -96,8 +97,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         Debug.Log("mode: "+ movementMode);
 		if(previousMovementMode!=movementMode){
 			previousMovementMode=movementMode;
-		  //GameObject.Find("UI Canvas/StaminaBar");
-          // GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
+		 
+          GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
 
@@ -179,6 +180,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
+            GameObject sb=GameObject.Find("StaminaBar");
+            int staminaAmount=0;
+           
+           if(sb.GetComponent<Stamina>()!=null){
+                staminaAmount=sb.GetComponent<Stamina>().stamina;
+            }
+           
+            if(staminaAmount>=0){
+                canRun=true;
+            }else{
+                canRun=false;
+            }
+            
             UpdateMovementMode();
         }
 

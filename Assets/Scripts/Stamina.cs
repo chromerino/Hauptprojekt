@@ -82,6 +82,9 @@ if(count==05){
     {
     stamina+= amount;
     }
+    public int getStamina(){
+        return stamina;
+    }
     void subtractStamina(int amount)
     {
         
