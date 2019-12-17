@@ -21,7 +21,7 @@ public class Stamina : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        /*
         if(Input.GetButtonDown("Vertical")){
            mode=0;
         }
@@ -34,7 +34,7 @@ public class Stamina : MonoBehaviour
         if(Input.GetButtonDown("Fire2")){
            mode=3;
         }
-       
+       */
         if(stamina>=maxStamina){
             stamina=maxStamina;
         }
@@ -73,7 +73,9 @@ if(count==05){
     count++;
 }
     }
- 
+    public void setMode(int m){
+		mode=m;
+	}
 
     void addStamina(int amount)
     {
@@ -84,4 +86,5 @@ if(count==05){
     stamina-= amount;
     }
 }
+
 

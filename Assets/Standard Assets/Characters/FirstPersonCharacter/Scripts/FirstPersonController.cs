@@ -37,7 +37,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField] private GameObject firstPersonObject;
         [SerializeField] private GameObject thirdPersonModell;
-
+		public int movementMode;
+		public int previousMovementMode;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
@@ -51,6 +52,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         [SerializeField] private bool m_Jumping;
         private AudioSource m_AudioSource;
+		private bool isStanding=true;
 
         public override void Attached()
         {
@@ -77,7 +79,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
         }
+		public void UpdateMovementMode(){
+		if(isStanding==false){
+		if(m_IsWalking){
+		movementMode=2;
+		}else{
+		movementMode=3;
+		}
+		}else{
+		movementMode=1;
+		}
 
+		if(previousMovementMode!=movementMode){
+			previousMovementMode=movementMode;
+			//setMode(movementMode);
+		}
+		}
 
         public override void SimulateOwner()
         {
@@ -247,8 +264,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // normalize input if it exceeds 1 in combined length:
             if (m_Input.sqrMagnitude > 1)
             {
+			isStanding=false;
                 m_Input.Normalize();
-            }
+            }else if(m_Input.sqrMagnitude==0){
+			isStanding=true;
+			}
 
             // handle speed change to give an fov kick
             // only if the player is going to a run, is running and the fovkick is to be used
