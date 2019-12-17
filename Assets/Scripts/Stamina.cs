@@ -41,7 +41,7 @@ public class Stamina : MonoBehaviour
         }
         //float progress= Mathf.Clamp01(1/maxStamina*stamina);
         float progress= (float)(1/(float)maxStamina)*(float)stamina;
-        Debug.Log(mode);
+        
         slider.value=progress;
 
 if(count==05){
@@ -84,8 +84,16 @@ if(count==05){
     }
     void subtractStamina(int amount)
     {
+        
     stamina-= amount;
+        if(stamina<0){
+            stamina=0;
+
+        } 
     }
-}
+}      
+
+           
+
 
 

@@ -53,9 +53,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private bool m_Jumping;
         private AudioSource m_AudioSource;
 		private bool isStanding=true;
+        public bool canRun=false;
 
         public override void Attached()
         {
+            
+
             if (!entity.IsOwner)
             {
                 Destroy(firstPersonObject);
@@ -77,10 +80,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             
             m_CharacterController = GetComponent<CharacterController>();
             m_Jumping = false;
+            canRun=false;
             m_AudioSource = GetComponent<AudioSource>();
         }
 		public void UpdateMovementMode(){
-		if(isStanding==false){
+		if(!isStanding){
 		if(m_IsWalking){
 		movementMode=2;
 		}else{
@@ -89,11 +93,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}else{
 		movementMode=1;
 		}
-
+        Debug.Log("mode: "+ movementMode);
 		if(previousMovementMode!=movementMode){
 			previousMovementMode=movementMode;
-			
-           GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
+		  //GameObject.Find("UI Canvas/StaminaBar");
+          // GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
 
@@ -257,7 +261,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
-            m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            m_IsWalking = !(canRun && Input.GetKey(KeyCode.LeftShift));
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
@@ -270,7 +274,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Input.Normalize();
             }else if(m_Input.sqrMagnitude==0){
 			isStanding=true;
-			}
+			}else{
+                isStanding=false;
+            }
 
             // handle speed change to give an fov kick
             // only if the player is going to a run, is running and the fovkick is to be used
