@@ -10,7 +10,7 @@ public class Stamina : MonoBehaviour
     public int stamina;
     public int maxStamina;
 
-    public int mode; // Current type of playermovement (0 crouching, 1 standing, 2 walking, 3 running)
+    public int mode=0; // Current type of playermovement (0 crouching, 1 standing, 2 walking, 3 running)
     int count=0;
     void Start()
     {
@@ -21,6 +21,7 @@ public class Stamina : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.Log("mode: "+mode + ", stamina: "+stamina);
         /*
         if(Input.GetButtonDown("Vertical")){
            mode=0;

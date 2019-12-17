@@ -37,8 +37,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField] private GameObject firstPersonObject;
         [SerializeField] private GameObject thirdPersonModell;
-		public int movementMode;
-		public int previousMovementMode;
+		[SerializeField] private int movementMode;
+		[SerializeField] private int previousMovementMode;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
@@ -92,7 +92,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		if(previousMovementMode!=movementMode){
 			previousMovementMode=movementMode;
-			//setMode(movementMode);
+			
+           GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
 
@@ -174,6 +175,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
+            UpdateMovementMode();
         }
 
 
