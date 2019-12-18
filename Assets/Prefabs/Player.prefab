@@ -1306,6 +1306,7 @@ MonoBehaviour:
   FullSprite: {fileID: 1564688358316481467, guid: 66d7479a901911140be99ee3de33a9d0,
     type: 3}
   CurrentHealth: 6
+  st: {fileID: 0}
 --- !u!1 &4061289780452340405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,7 +2348,7 @@ MeshRenderer:
     firstSubMesh: 0
     subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: -4216859302048453862, guid: 26c10f2fd19e8eb4d9be61f014af7512,
+  m_ProbeAnchor: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
     type: 3}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
