@@ -3266,7 +3266,28 @@
       "Groups": [
         "samples"
       ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "HittingBool",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "HitEvent",
+      "Guid": "e29affcb-d82b-401f-b8d6-09d531153638",
+      "Groups": []
     }
   ],
-  "ActiveGroup": "samples"
+  "ActiveGroup": "Everything"
 }

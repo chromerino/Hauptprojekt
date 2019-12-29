@@ -213,6 +213,11 @@ public class World : MonoBehaviour
     /// </summary>
 	void Start ()
     {
+		while (player is null)
+		{ 
+			
+		
+		}
 		Vector3 ppos = player.transform.position;
 		player.transform.position = new Vector3(ppos.x,
 											Utils.GenerateHeight(ppos.x,ppos.z) + 1,
