@@ -20,7 +20,7 @@ public class ArmorAndWeapons : MonoBehaviour
 	Armor[i].SetActive(false);
 	}
 
-	public void ResetArmor()
+	public void resetArmor()
 	{
 		for (int i = 0; i < 4; i++)
 		{

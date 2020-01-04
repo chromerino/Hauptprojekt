@@ -22,8 +22,11 @@ public class World : MonoBehaviour
 	public static int spawnPosX;
 	public static int spawnPosZ;
 	public static bool firstbuild = true;
-
+	public GameObject ArmorUI;
+	public GameObject StaminaUI;
+	public GameObject HealthUI;
 	public static CoroutineQueue queue;
+	public bool spawnable = true;
 
 	public bool arenaIsReady=false; 
 
@@ -314,6 +317,20 @@ public class World : MonoBehaviour
     /// <summary>
     /// Unity lifecycle update method. Actviates the player's GameObject. Updates chunks based on the player's position.
     /// </summary>
+    /// 
+	public void spawnPlayer()
+    {
+		player.SetActive(true);
+		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
+		Stamina stamina = StaminaUI.GetComponent<Stamina>();
+		Hearts health = HealthUI.GetComponent<Hearts>();
+		armor.resetArmor();
+		stamina.resetStamina();
+		health.resetHealth();
+		player.transform.position = randomSpawnpoint();
+
+	}
+
 	void Update (){
 	/*
 	if(!player.activeSelf)
@@ -353,8 +370,13 @@ Vector3 ppos = player.transform.position;
 	}
 if(arenaIsReady)
 		{
-			player.SetActive(true);	
-		
+			//player.SetActive(true);
+			if (spawnable)
+			{
+				spawnPlayer();
+				spawnable = false;
+			}
+
 		}
 /* 
 	if(getChunkReady((int)(ppos.x/chunkSize), (int)(ppos.y/chunkSize), (int)(ppos.z/chunkSize)))

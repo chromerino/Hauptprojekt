@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    double Damage;
+    double fireCD; //cooldown between shots/attacks (can also  be a knife or another melee weapon)
+    enum WeaponType {Primary, Secundary, Melee }
+    int magazinSize; //only important if non-melee weapon
+    int ammoMax; //maximum ammunation possible : only important if non-melee weapon
+    double reloadTime; //only important if non-melee weapon
 }

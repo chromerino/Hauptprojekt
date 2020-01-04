@@ -7,7 +7,8 @@ using System;
 public class Hearts : MonoBehaviour
 {
 
-    // Start is called before the first frame update
+	// Start is called before the first frame update
+	public GameObject player;
 	public GameObject[] Heart;
 	public Sprite EmptySprite;
 	public Sprite HalfSprite;
@@ -74,6 +75,7 @@ void full(int i) {
     sr=Heart[i].GetComponent<Image>();
 	sr.sprite = FullSprite;
 }
+
 void receiveDMG(double dmg)
     {
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
@@ -83,7 +85,14 @@ void receiveDMG(double dmg)
 		CurrentHealth -= negDMG;
 
 	}
-	void restoreHealth(double tempHeal)
+	void die_player()
+	{
+		player.SetActive(false);
+
+	}
+	
+
+	public void restoreHealth(double tempHeal)
 	{
 		
 		double heal = tempHeal;
@@ -91,7 +100,8 @@ void receiveDMG(double dmg)
 		CurrentHealth += heal;
 
 	}
-	void resetHealth()
+
+	public void resetHealth()
 	{ 
 		CurrentHealth = MaxHealth;
 
