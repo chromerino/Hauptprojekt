@@ -640,6 +640,7 @@ GameObject:
   - component: {fileID: 3378656669392095997}
   - component: {fileID: 7994650917817062253}
   - component: {fileID: 5681435600488685975}
+  - component: {fileID: 2715375527113711491}
   m_Layer: 5
   m_Name: Armor
   m_TagString: Untagged
@@ -730,6 +731,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2715375527113711491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833118168125155225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c2a85a18412bf409d4b92db7d4e9dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Armor:
+  - {fileID: 5102056218671116630}
+  - {fileID: 1005048947411411575}
+  - {fileID: 3284403039741439708}
+  - {fileID: 1518447697022672780}
 --- !u!1 &1870749518420764299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,7 +1324,8 @@ MonoBehaviour:
   FullSprite: {fileID: 1564688358316481467, guid: 66d7479a901911140be99ee3de33a9d0,
     type: 3}
   CurrentHealth: 6
-  st: {fileID: 0}
+  Staminabar: {fileID: 1638198360544475875}
+  ArmorUI: {fileID: 1833118168125155225}
 --- !u!1 &4061289780452340405
 GameObject:
   m_ObjectHideFlags: 0

@@ -255,17 +255,22 @@ public class World : MonoBehaviour
 		
 		
 		Vector3 ppos = player.transform.position;
+		player.transform.position = randomSpawnpoint();
+		/*
 		player.transform.position = new Vector3(spawnPosX,
 											Noise.GenerateHeight(spawnPosX,spawnPosZ) + 2,
 											spawnPosZ);
+
+		*/
 											player.SetActive(false);
+		
 		BuildChunkAt((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize));
 											DrawChunks();
 											
 											for(int y=0; y<columnHeight; y++){
-													   BuildChunkAt(spawnPosX/chunkSize,y,spawnPosZ/chunkSize);
+													   BuildChunkAt((int)player.transform.position.x / chunkSize, y, (int)player.transform.position.z/ chunkSize);
 													   }
 											DrawChunks();
 
@@ -296,6 +301,14 @@ public class World : MonoBehaviour
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize),radius,radius));
 											*/
+	}
+
+	public Vector3 randomSpawnpoint()
+    {
+		int spawnX= Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
+		int spawnZ = Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
+		return new Vector3(spawnX, Noise.GenerateHeight(spawnX, spawnZ) + 2,
+											spawnZ);
 	}
 	
     /// <summary>

@@ -78,6 +78,11 @@ if(count==05){
 		mode=m;
 	}
 
+    public void resetStamina()
+    {
+        stamina = maxStamina;
+    }
+
     void addStamina(int amount)
     {
     stamina+= amount;
