@@ -7,6 +7,7 @@ public class Menu : Bolt.GlobalEventListener
     [SerializeField] GameObject hostMenu;
     [SerializeField] GameObject clientMenu;
     [SerializeField] GameObject lobbyname;
+    [SerializeField] GameObject joinname;
 
     public void NavigateToHostMenu()
     {
@@ -63,10 +64,12 @@ public class Menu : Bolt.GlobalEventListener
         {
             UdpSession photonSession = session.Value as UdpSession;
 
-            if (photonSession.Source == UdpSessionSource.Photon)
+            if (photonSession.Source == UdpSessionSource.Photon && photonSession.HostName.Equals(joinname.GetComponent<UnityEngine.UI.Text>().text))
             {
                 BoltNetwork.Connect(photonSession);
+                return;
             }
         }
+        BoltNetwork.Shutdown();
     }
 }
