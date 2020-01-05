@@ -1,4 +1,5 @@
-﻿using UdpKit;
+﻿using Bolt.Matchmaking;
+using UdpKit;
 using UnityEngine;
 
 public class Menu : Bolt.GlobalEventListener
@@ -40,6 +41,9 @@ public class Menu : Bolt.GlobalEventListener
     public void StartClient()
     {
         BoltLauncher.StartClient();
+
+        string matchName = joinname.GetComponent<UnityEngine.UI.Text>().text;
+        BoltMatchmaking.JoinSession(matchName);
     }
 
     public void QuitGame()
@@ -53,23 +57,21 @@ public class Menu : Bolt.GlobalEventListener
         {
             string matchName = lobbyname.GetComponent<UnityEngine.UI.Text>().text;
 
-            BoltNetwork.SetServerInfo(matchName, null);
+            BoltMatchmaking.CreateSession(matchName);
             BoltNetwork.LoadScene("Main");
         }
     }
 
-    public override void SessionListUpdated(UdpKit.Map<System.Guid, UdpKit.UdpSession> sessionList)
+    /*public override void SessionListUpdated(UdpKit.Map<System.Guid, UdpKit.UdpSession> sessionList)
     {
         foreach (var session in sessionList)
         {
             UdpSession photonSession = session.Value as UdpSession;
 
-            if (photonSession.Source == UdpSessionSource.Photon && photonSession.HostName.Equals(joinname.GetComponent<UnityEngine.UI.Text>().text))
+            if (photonSession.Source == UdpSessionSource.Photon)
             {
                 BoltNetwork.Connect(photonSession);
-                return;
             }
         }
-        BoltNetwork.Shutdown();
-    }
+    }*/
 }
