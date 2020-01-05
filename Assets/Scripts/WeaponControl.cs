@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class WeaponControl : MonoBehaviour
 {
     public GameObject[] MainWeapons;
@@ -16,26 +17,125 @@ public class WeaponControl : MonoBehaviour
     public Button[] SW;
     public Button[] BF;
     private int currentBuff;
-
-    // Update is called once per frame
+    private WeaponScript currentWeaponsStats;
+    public GameObject ArmorUI;
+    public GameObject EquipmentMenu;
+    
+    void Start()
+    {
+        EquipmentMenu.SetActive(false);
+    } 
+   // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            
+            if(Time.time>= currentWeaponsStats.getBorder())
+            {
+                if (currentWeaponsStats.type == WeaponScript.WeaponType.Melee)
+                {
+                    meleeAttack();
+                    Debug.Log("POW!!! (Melee-attacking)");
+                }
+                else
+                {
+                    if (currentWeaponsStats.ammoInMagazine > 0)
+                    {
+                        Debug.Log("bumm!!! (shooting)");
+                        currentWeaponsStats.ammoInMagazine--;
+                    }else if (currentWeaponsStats.currentAmmo > 0)
+                    {
+                        currentWeaponsStats.reload();
+                        currentWeaponsStats.setBorder();
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reloading");
+            currentWeaponsStats.reload();
+            currentWeaponsStats.setBorder();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("mainweapon equipped!");
+            equipMainWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("secondary weapon equipped!");
+            equipSecondaryWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("melee-weapon equipped!");
+            equipMeleeWeapon();
+        }
+    }
+    public void meleeAttack()
+    {
+
+    }
+    public void shoot()
+    {
+
+    }
+    public void vanish()
+    {
+        EquipmentMenu.SetActive(false);
     }
     public void equipMainWeapon()
     {
         currentlyEquippedWeapon = MainWeapons[currentMainWeapon];
+        currentWeaponsStats=currentlyEquippedWeapon.GetComponent<WeaponScript>();
     }
     public void equipSecondaryWeapon()
     {
         currentlyEquippedWeapon = SecondaryWeapons[currentSecondaryWeapon];
+        currentWeaponsStats = currentlyEquippedWeapon.GetComponent<WeaponScript>();
     }
     public void equipMeleeWeapon()
     {
         currentlyEquippedWeapon = MeleeWeapons[currentMeleeWeapon];
+        currentWeaponsStats = currentlyEquippedWeapon.GetComponent<WeaponScript>();
+    }
+    public void openMenu()
+    {
+        EquipmentMenu.SetActive(true);
+        MW[currentMainWeapon].onClick.Invoke();
+        SW[currentSecondaryWeapon].onClick.Invoke();
+        BF[currentBuff].onClick.Invoke();
     }
     
+    public void onSpawn()
+    {
+        if (currentBuff == 1)
+        {
+            MainWeapons[currentMainWeapon].GetComponent<WeaponScript>().moreAmmo();
+            SecondaryWeapons[currentSecondaryWeapon].GetComponent<WeaponScript>().moreAmmo();
+        }
+        else
+        {
+            MainWeapons[currentMainWeapon].GetComponent<WeaponScript>().resetAmmo();
+            SecondaryWeapons[currentSecondaryWeapon].GetComponent<WeaponScript>().resetAmmo();
 
+            if (currentBuff == 2)
+            {
+                ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
+                armor.equipRandomArmorpiece();
+            }
+            else
+            {
+
+            }
+
+
+        }
+        equipMainWeapon();
+        vanish();
+    }
 
      public void freeze(Button but)
     {

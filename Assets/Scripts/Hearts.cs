@@ -17,7 +17,7 @@ public class Hearts : MonoBehaviour
 	public double CurrentHealth=6;
 	private Image sr;
     public GameObject Staminabar;
-	
+	public GameObject EquipmentUI;
 	public GameObject ArmorUI;
 	
 
@@ -87,8 +87,10 @@ void receiveDMG(double dmg)
 	}
 	void die_player()
 	{
+		
+		WeaponControl weapons = EquipmentUI.GetComponent<WeaponControl>();
+		weapons.openMenu();
 		player.SetActive(false);
-
 	}
 	
 

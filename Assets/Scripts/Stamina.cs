@@ -21,7 +21,7 @@ public class Stamina : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("mode: "+mode + ", stamina: "+stamina);
+        //Debug.Log("mode: "+mode + ", stamina: "+stamina);
         /*
         if(Input.GetButtonDown("Vertical")){
            mode=0;

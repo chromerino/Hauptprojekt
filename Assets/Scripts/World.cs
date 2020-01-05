@@ -25,6 +25,7 @@ public class World : MonoBehaviour
 	public GameObject ArmorUI;
 	public GameObject StaminaUI;
 	public GameObject HealthUI;
+	public GameObject EquipmentUI;
 	public static CoroutineQueue queue;
 	public bool spawnable = true;
 
@@ -324,9 +325,11 @@ public class World : MonoBehaviour
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
 		Stamina stamina = StaminaUI.GetComponent<Stamina>();
 		Hearts health = HealthUI.GetComponent<Hearts>();
+		WeaponControl weapons= EquipmentUI.GetComponent<WeaponControl>();
 		armor.resetArmor();
 		stamina.resetStamina();
 		health.resetHealth();
+		weapons.onSpawn();
 		player.transform.position = randomSpawnpoint();
 
 	}
