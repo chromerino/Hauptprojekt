@@ -10,7 +10,7 @@ public class Stamina : MonoBehaviour
     public int stamina;
     public int maxStamina;
 
-    public int mode; // Current type of playermovement (0 crouching, 1 standing, 2 walking, 3 running)
+    public int mode=0; // Current type of playermovement (0 crouching, 1 standing, 2 walking, 3 running)
     int count=0;
     void Start()
     {
@@ -21,7 +21,8 @@ public class Stamina : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        //Debug.Log("mode: "+mode + ", stamina: "+stamina);
+        /*
         if(Input.GetButtonDown("Vertical")){
            mode=0;
         }
@@ -34,13 +35,13 @@ public class Stamina : MonoBehaviour
         if(Input.GetButtonDown("Fire2")){
            mode=3;
         }
-       
+       */
         if(stamina>=maxStamina){
             stamina=maxStamina;
         }
         //float progress= Mathf.Clamp01(1/maxStamina*stamina);
         float progress= (float)(1/(float)maxStamina)*(float)stamina;
-        Debug.Log(mode);
+        
         slider.value=progress;
 
 if(count==05){
@@ -73,15 +74,34 @@ if(count==05){
     count++;
 }
     }
- 
+    public void setMode(int m){
+		mode=m;
+	}
+
+    public void resetStamina()
+    {
+        stamina = maxStamina;
+    }
 
     void addStamina(int amount)
     {
     stamina+= amount;
     }
+    public int getStamina(){
+        return stamina;
+    }
     void subtractStamina(int amount)
     {
+        
     stamina-= amount;
+        if(stamina<0){
+            stamina=0;
+
+        } 
     }
-}
+}      
+
+           
+
+
 

@@ -12,23 +12,31 @@ public class World : MonoBehaviour
 	public GameObject player;
 	public Material textureAtlas;
 	public Material fluidTexture;
-	public static int columnHeight = 16;
+	public static int columnHeight = 5;
 	public static int chunkSize = 8;
+	public static int worldSize = 10;
 	public static int radius = 3;
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
-
+	public static int spawnPosX;
+	public static int spawnPosZ;
 	public static bool firstbuild = true;
-
+	public GameObject ArmorUI;
+	public GameObject StaminaUI;
+	public GameObject HealthUI;
+	public GameObject EquipmentUI;
 	public static CoroutineQueue queue;
+	public bool spawnable = true;
+
+	public bool arenaIsReady=false; 
 
 	public Vector3 lastbuildPos;
 
     /// <summary>
     /// Creates a name for the chunk based on its position
     /// </summary>
-    /// <param name="v">Position of tje chunk</param>
+    /// <param name="v">Position of the chunk</param>
     /// <returns>Returns a string witht he chunk's name</returns>
 	public static string BuildChunkName(Vector3 v)
 	{
@@ -85,6 +93,7 @@ public class World : MonoBehaviour
         else
             return null;
     }
+	
 
     /// <summary>
     /// Instantiates a new chunk at a specified location.
@@ -92,6 +101,23 @@ public class World : MonoBehaviour
     /// <param name="x">y position of the chunk</param>
     /// <param name="y">y position of the chunk</param>
     /// <param name="z">z position of the chunk</param>
+    private Chunk GetChunk(int x, int y, int z){
+		Vector3 chunkPosition = new Vector3(x*chunkSize, 
+											y*chunkSize, 
+											z*chunkSize);
+											string n = BuildChunkName(chunkPosition);
+        Chunk temp;
+		chunks.TryGetValue(n, out temp);
+
+
+		return temp;
+	}
+	private bool getChunkReady(int x, int y, int z){
+		Chunk c=GetChunk(x,y,z);
+		
+		return c.status==Chunk.ChunkStatus.DONE;
+	}
+
 	private void BuildChunkAt(int x, int y, int z)
 	{
 		Vector3 chunkPosition = new Vector3(x*chunkSize, 
@@ -213,43 +239,156 @@ public class World : MonoBehaviour
     /// </summary>
 	void Start ()
     {
-		while (player is null)
-		{ 
-			
-		
-		}
+	/*
 		Vector3 ppos = player.transform.position;
 		player.transform.position = new Vector3(ppos.x,
-											Utils.GenerateHeight(ppos.x,ppos.z) + 1,
+											Noise.GenerateHeight(ppos.x,ppos.z) + 2,
 											ppos.z);
 		lastbuildPos = player.transform.position;
 		player.SetActive(false);
-
+		*/
 		firstbuild = true;
 		chunks = new ConcurrentDictionary<string, Chunk>();
+		/*
 		this.transform.position = Vector3.zero;
 		this.transform.rotation = Quaternion.identity;	
+		*/
+		
+		spawnPosX=worldSize*chunkSize/2;
+		spawnPosZ=worldSize*chunkSize/2;
+		
+		
+		Vector3 ppos = player.transform.position;
+		player.transform.position = randomSpawnpoint();
+		/*
+		player.transform.position = new Vector3(spawnPosX,
+											Noise.GenerateHeight(spawnPosX,spawnPosZ) + 2,
+											spawnPosZ);
 
-		queue = new CoroutineQueue(maxCoroutines, StartCoroutine);
-
-		// Build starting chunk
+		*/
+											player.SetActive(false);
+		
 		BuildChunkAt((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize));
+											DrawChunks();
+											
+											for(int y=0; y<columnHeight; y++){
+													   BuildChunkAt((int)player.transform.position.x / chunkSize, y, (int)player.transform.position.z/ chunkSize);
+													   }
+											DrawChunks();
+
+											queue = new CoroutineQueue(maxCoroutines, StartCoroutine);
+
+											for(int x=0; x<worldSize; x++){
+												for(int z=0; z<worldSize; z++){
+													for(int y=0; y<columnHeight; y++){
+													   BuildChunkAt(x,y,z);
+													   }
+
+											
+												}
+											
+
+											}
+	    
+
 		// Draw starting chunk
 		queue.Run(DrawChunks());
+		
+											
+	
 
+		/*
 		// Create further chunks
 		queue.Run(BuildRecursiveWorld((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize),radius,radius));
+											*/
+	}
+
+	public Vector3 randomSpawnpoint()
+    {
+		int spawnX= Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
+		int spawnZ = Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
+		return new Vector3(spawnX, Noise.GenerateHeight(spawnX, spawnZ) + 2,
+											spawnZ);
 	}
 	
     /// <summary>
     /// Unity lifecycle update method. Actviates the player's GameObject. Updates chunks based on the player's position.
     /// </summary>
-	void Update ()
+    /// 
+	public void spawnPlayer()
     {
+		player.SetActive(true);
+		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
+		Stamina stamina = StaminaUI.GetComponent<Stamina>();
+		Hearts health = HealthUI.GetComponent<Hearts>();
+		WeaponControl weapons= EquipmentUI.GetComponent<WeaponControl>();
+		armor.resetArmor();
+		stamina.resetStamina();
+		health.resetHealth();
+		weapons.onSpawn();
+		player.transform.position = randomSpawnpoint();
+
+	}
+
+	void Update (){
+	/*
+	if(!player.activeSelf)
+		{
+			player.SetActive(true);	
+			firstbuild = false;
+		}
+	
+		Vector3 chunkPosition = new Vector3(spawnPosX/chunkSize,y,spawnPosZ/chunkSize);
+					
+		string n = BuildChunkName(chunkPosition);
+		Chunk c;
+
+		if(!chunks.TryGetValue(n, out c))
+    {
+	if(ChunkStatus.DONE){
+		player.SetActive(true);
+	}
+	*/
+Vector3 ppos = player.transform.position;
+    if(!arenaIsReady){
+		bool fail=false;
+		for(int x=0; x<worldSize; x++){
+		    for(int z=0; z<worldSize; z++){
+		        for(int y=0; y<columnHeight; y++){
+					if(!getChunkReady(x,y,z)){
+						fail=true;
+					}
+
+			
+		        }	
+		    }	
+		}
+		if(fail==false){
+			arenaIsReady=true;
+		}
+	}
+if(arenaIsReady)
+		{
+			//player.SetActive(true);
+			if (spawnable)
+			{
+				spawnPlayer();
+				spawnable = false;
+			}
+
+		}
+/* 
+	if(getChunkReady((int)(ppos.x/chunkSize), (int)(ppos.y/chunkSize), (int)(ppos.z/chunkSize)))
+		{
+			player.SetActive(true);	
+		
+		}
+		*/
+	/*
         // Determine whether to build/load more chunks around the player's location
 		Vector3 movement = lastbuildPos - player.transform.position;
 
@@ -269,5 +408,8 @@ public class World : MonoBehaviour
         // Draw new chunks and removed deprecated chunks
 		queue.Run(DrawChunks());
 		queue.Run(RemoveOldChunks());
+	*/
 	}
+	
+	
 }

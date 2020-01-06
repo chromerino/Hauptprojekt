@@ -3271,22 +3271,26 @@
       "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
       "Properties": [
         {
-          "Name": "HittingBool",
+          "Name": "seed",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
-            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
           }
         }
       ],
-      "Name": "HitEvent",
-      "Guid": "e29affcb-d82b-401f-b8d6-09d531153638",
-      "Groups": []
+      "GlobalSenders": 1,
+      "Name": "ShareSeedEvent",
+      "Guid": "38963341-da0d-4a3c-90d3-24af7e72ac45",
+      "Groups": [
+        "samples"
+      ]
     }
   ],
   "ActiveGroup": "Everything"
