@@ -5,13 +5,13 @@ using UnityEngine;
 public class Attack : Bolt.EntityBehaviour<IPlayerState>
 {
 	public GameObject weapon;
-	private HitEvent hitEvnt;
+	//private HitEvent hitEvnt;
 
 	// Start is called before the first frame update
 	public override void Attached()
 	{
 		state.OnFire = Fire;
-		hitEvnt = HitEvent.Create();
+		//hitEvnt = HitEvent.Create();
 
 	}
 
@@ -26,7 +26,7 @@ public class Attack : Bolt.EntityBehaviour<IPlayerState>
 		if (Input.GetKeyDown(KeyCode.Mouse0 ) && entity.IsOwner)
 		{
 			state.Fire();
-			hitEvnt.Send();
+			//hitEvnt.Send();
 		}
 
 	}

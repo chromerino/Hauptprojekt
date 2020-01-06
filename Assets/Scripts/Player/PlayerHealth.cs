@@ -41,7 +41,7 @@ public class PlayerHealth : Bolt.EntityBehaviour<IPlayerState>
 
 		if (localHealth <= 0)
 		{
-			BoltNetwork.Destroy(gameObject);
+			//BoltNetwork.Destroy(gameObject);
 		}
 	}
 

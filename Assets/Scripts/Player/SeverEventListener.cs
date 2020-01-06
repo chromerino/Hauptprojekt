@@ -9,7 +9,7 @@ public class SeverEventListener : Bolt.GlobalEventListener
 	int timer = 0;
 
 	// every axe swing opens a 1s time window. in this 1s, if axe in body, would count it as a hit.
-	public override void OnEvent(HitEvent evnt)
+	/*public override void OnEvent(HitEvent evnt)
 	{
 		//evnt.HittingBool = true;
 		//// react to axe swing only when not counting
@@ -18,7 +18,7 @@ public class SeverEventListener : Bolt.GlobalEventListener
 		//	hitting = true;
 		//	oneSecCounter = true;
 		//}
-	}
+	}*/
 
 	private void FixedUpdate()
 	{
