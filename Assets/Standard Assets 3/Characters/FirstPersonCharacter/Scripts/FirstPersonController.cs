@@ -94,7 +94,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}else{
 		movementMode=1;
 		}
-        Debug.Log("mode: "+ movementMode);
+        //Debug.Log("mode: "+ movementMode);
 		if(previousMovementMode!=movementMode){
 			previousMovementMode=movementMode;
 		 
