@@ -12823,8 +12823,8 @@ GameObject:
   - component: {fileID: 8354284060436030738}
   - component: {fileID: 8354284060436030739}
   - component: {fileID: 3537908194454423430}
-  - component: {fileID: 1297248165387916187}
   - component: {fileID: -6124889875902559942}
+  - component: {fileID: 807571563721693696}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -12905,7 +12905,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   world: {fileID: 7024552170354334140}
   UI_Canvas: {fileID: 7350835734714629192}
---- !u!23 &1297248165387916187
+--- !u!64 &-6124889875902559942
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354284060436030736}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 0}
+--- !u!23 &807571563721693696
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12927,8 +12941,7 @@ MeshRenderer:
     firstSubMesh: 0
     subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
-    type: 3}
+  m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_ReceiveGI: 1
@@ -12944,20 +12957,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &-6124889875902559942
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8354284060436030736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 0
-  m_Mesh: {fileID: 0}
 --- !u!1 &8354284061475084103
 GameObject:
   m_ObjectHideFlags: 0
@@ -14470,7 +14469,7 @@ PrefabInstance:
     - target: {fileID: -5716681864270162303, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
@@ -14485,7 +14484,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
@@ -14551,6 +14550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1268791579216300763, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
