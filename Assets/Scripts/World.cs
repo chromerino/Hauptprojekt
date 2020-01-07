@@ -309,8 +309,8 @@ public class World : MonoBehaviour
 
 	public Vector3 randomSpawnpoint()
     {
-		int spawnX= Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
-		int spawnZ = Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
+		int spawnX= (int) Random.Range((float) (worldSize * chunkSize / 20*1.5), (float) (worldSize * chunkSize / 20 * 18.5));
+		int spawnZ = (int) Random.Range((float) (worldSize * chunkSize / 20*1.5), (float) (worldSize * chunkSize / 20 * 18.5));
 		return new Vector3(spawnX, Noise.GenerateHeight(spawnX, spawnZ) + 2,
 											spawnZ);
 	}
