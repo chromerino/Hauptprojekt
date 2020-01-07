@@ -26,6 +26,7 @@ public class World : MonoBehaviour
 	public GameObject StaminaUI;
 	public GameObject HealthUI;
 	public GameObject EquipmentUI;
+	public GameObject realWeapons;
 	public static CoroutineQueue queue;
 	public bool spawnable = true;
 
@@ -319,9 +320,26 @@ public class World : MonoBehaviour
     /// Unity lifecycle update method. Actviates the player's GameObject. Updates chunks based on the player's position.
     /// </summary>
     /// 
+	public void deactivate_ALIVE_UI()
+    {
+		
+		ArmorUI.SetActive(false);
+		StaminaUI.SetActive(false);
+		HealthUI.SetActive(false);
+		realWeapons.SetActive(false);
+	}
+	public void activate_ALIVE_UI()
+	{
+		
+		ArmorUI.SetActive(true);
+		StaminaUI.SetActive(true);
+		HealthUI.SetActive(true);
+		realWeapons.SetActive(true);
+	}
 	public void spawnPlayer()
     {
 		player.SetActive(true);
+		activate_ALIVE_UI();
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
 		Stamina stamina = StaminaUI.GetComponent<Stamina>();
 		Hearts health = HealthUI.GetComponent<Hearts>();

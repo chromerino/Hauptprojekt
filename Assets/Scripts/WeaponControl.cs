@@ -20,6 +20,7 @@ public class WeaponControl : MonoBehaviour
     private WeaponScript currentWeaponsStats;
     public GameObject ArmorUI;
     public GameObject EquipmentMenu;
+    public GameObject World;
     
     void Start()
     {
@@ -104,6 +105,7 @@ public class WeaponControl : MonoBehaviour
     public void openMenu()
     {
         EquipmentMenu.SetActive(true);
+        World.GetComponent<World>().deactivate_ALIVE_UI();
         MW[currentMainWeapon].onClick.Invoke();
         SW[currentSecondaryWeapon].onClick.Invoke();
         BF[currentBuff].onClick.Invoke();
@@ -111,6 +113,7 @@ public class WeaponControl : MonoBehaviour
     
     public void onSpawn()
     {
+        
         if (currentBuff == 1)
         {
             MainWeapons[currentMainWeapon].GetComponent<WeaponScript>().moreAmmo();
