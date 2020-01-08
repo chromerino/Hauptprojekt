@@ -45,18 +45,19 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
                     if (currentWeaponsStats.ammoInMagazine > 0)
                     {
                         Debug.Log("bumm!!! (shooting)");
+                        Debug.Log("Ammo: "+ currentWeaponsStats.ammoInMagazine+"/"+ currentWeaponsStats.magazineSize);
                         currentWeaponsStats.ammoInMagazine--;
                     }else if (currentWeaponsStats.currentAmmo > 0)
                     {
                         currentWeaponsStats.reload();
-                        currentWeaponsStats.setBorder();
+                        
                     }
                 }
             }
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("Reloading");
+            
             currentWeaponsStats.reload();
             currentWeaponsStats.setBorder();
         }
