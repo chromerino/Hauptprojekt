@@ -65,10 +65,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Destroy(firstPersonObject);
                 Destroy(GetComponent<Rigidbody>());
                 Destroy(GetComponent<FirstPersonController>());
+                Destroy(GetComponent<CharacterController>());
             }
             else
             {
+                this.gameObject.layer = 2;
                 Destroy(thirdPersonModell);
+                Destroy(GetComponent<BoxCollider>());
                 m_Camera = Camera.main;
                 m_OriginalCameraPosition = m_Camera.transform.localPosition;
                 m_FovKick.Setup(m_Camera);
