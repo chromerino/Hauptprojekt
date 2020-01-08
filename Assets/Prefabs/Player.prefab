@@ -10918,6 +10918,7 @@ MonoBehaviour:
   HealthUI: {fileID: 3490477376475434070}
   EquipmentUI: {fileID: 7665323185174719878}
   realWeapons: {fileID: 4746205492385822666}
+  fadennkreuz: {fileID: 4938904097157475229}
   spawnable: 1
   arenaIsReady: 0
   lastbuildPos: {x: 0, y: 0, z: 0}

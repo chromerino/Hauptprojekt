@@ -186,8 +186,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
            if(sb.GetComponent<Stamina>()!=null){
                 staminaAmount=sb.GetComponent<Stamina>().stamina;
             }
-           
-            if(staminaAmount>=0){
+
+            if (staminaAmount >= 0 && !sb.GetComponent<Stamina>().isBlocked)
+            {
                 canRun=true;
             }else{
                 canRun=false;

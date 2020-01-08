@@ -27,6 +27,7 @@ public class World : MonoBehaviour
 	public GameObject HealthUI;
 	public GameObject EquipmentUI;
 	public GameObject realWeapons;
+	public GameObject fadennkreuz;
 	public static CoroutineQueue queue;
 	public bool spawnable = true;
 
@@ -310,9 +311,9 @@ public class World : MonoBehaviour
 
 	public Vector3 randomSpawnpoint()
     {
-		int spawnX= (int) Random.Range((float) (worldSize * chunkSize / 20*1.5), (float) (worldSize * chunkSize / 20 * 18.5));
-		int spawnZ = (int) Random.Range((float) (worldSize * chunkSize / 20*1.5), (float) (worldSize * chunkSize / 20 * 18.5));
-		return new Vector3(spawnX, Noise.GenerateHeight(spawnX, spawnZ) + 2,
+		int spawnX= (int) Random.Range((float) (worldSize * chunkSize / 40*3), (float) (worldSize * chunkSize / 40*37));
+		int spawnZ = (int) Random.Range((float) (worldSize * chunkSize / 40*3), (float) (worldSize * chunkSize / 40 * 37));
+		return new Vector3(spawnX, Noise.getHighest(spawnX, spawnZ) + 2,
 											spawnZ);
 	}
 	
@@ -327,6 +328,9 @@ public class World : MonoBehaviour
 		StaminaUI.SetActive(false);
 		HealthUI.SetActive(false);
 		realWeapons.SetActive(false);
+		fadennkreuz.SetActive(false);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 	public void activate_ALIVE_UI()
 	{
@@ -335,6 +339,10 @@ public class World : MonoBehaviour
 		StaminaUI.SetActive(true);
 		HealthUI.SetActive(true);
 		realWeapons.SetActive(true);
+		fadennkreuz.SetActive(true);
+		
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 	}
 	public void spawnPlayer()
     {

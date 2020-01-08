@@ -9,6 +9,8 @@ public class Stamina : MonoBehaviour
     // Start is called before the first frame update
     public int stamina;
     public int maxStamina;
+    public bool isBlocked;
+    public double unblockTime;
 
     public int mode=0; // Current type of playermovement (0 crouching, 1 standing, 2 walking, 3 running)
     int count=0;
@@ -16,63 +18,76 @@ public class Stamina : MonoBehaviour
     {
         float progress= Mathf.Clamp01(1/maxStamina*stamina);
         slider.value=progress;
+        isBlocked = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Debug.Log("mode: "+mode + ", stamina: "+stamina);
-        /*
-        if(Input.GetButtonDown("Vertical")){
-           mode=0;
+        if (!isBlocked)
+        {
+            if (stamina == 0)
+            {
+                isBlocked = true;
+                unblockTime = Time.time + 0.5;
+            }
+
+            if (stamina >= maxStamina)
+            {
+                stamina = maxStamina;
+            }
+            //float progress= Mathf.Clamp01(1/maxStamina*stamina);
+            float progress = (float)(1 / (float)maxStamina) * (float)stamina;
+
+            slider.value = progress;
+
+            if (count == 05)
+            {
+                int regMult = 1;
+                if (mode == 0)
+                {
+                    regMult = 3;
+                    addStamina(regMult);
+
+
+                }
+                else if (mode == 1)
+                {
+                    regMult = 2;
+                    addStamina(regMult);
+
+
+                }
+                else if (mode == 2)
+                {
+                    regMult = 1;
+                    addStamina(regMult);
+
+
+                }
+                else if (mode == 3)
+                {
+                    regMult = 2;
+                    subtractStamina(regMult);
+
+
+
+
+                }
+                count = 0;
+            }
+            else
+            {
+                count++;
+            }
         }
-        if(Input.GetButtonDown("Horizontal")){
-           mode=1;
+        else
+        {
+            if (Time.time >= unblockTime)
+            {
+                isBlocked = false;
+            }
         }
-        if(Input.GetButtonDown("Fire1")){
-           mode=2;
-        }
-        if(Input.GetButtonDown("Fire2")){
-           mode=3;
-        }
-       */
-        if(stamina>=maxStamina){
-            stamina=maxStamina;
-        }
-        //float progress= Mathf.Clamp01(1/maxStamina*stamina);
-        float progress= (float)(1/(float)maxStamina)*(float)stamina;
-        
-        slider.value=progress;
-
-if(count==05){
-        int regMult=1;
-        if(mode==0){
-            regMult=3;
-            addStamina(regMult);
-
-
-        }else if(mode==1){
-            regMult=2;
-            addStamina(regMult);
-
-
-        }else if(mode==2){
-            regMult=1;
-            addStamina(regMult);
-
-
-        }else if(mode==3){
-            regMult=2;
-            subtractStamina(regMult);
-
- 
-        
-        
-        }
-        count=0;
-}else{
-    count++;
-}
     }
     public void setMode(int m){
 		mode=m;
