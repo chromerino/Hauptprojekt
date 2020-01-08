@@ -106,6 +106,7 @@ public class WeaponControl : MonoBehaviour
     {
         EquipmentMenu.SetActive(true);
         World.GetComponent<World>().deactivate_ALIVE_UI();
+        World.GetComponent<World>().deactivate_Player();
         MW[currentMainWeapon].onClick.Invoke();
         SW[currentSecondaryWeapon].onClick.Invoke();
         BF[currentBuff].onClick.Invoke();

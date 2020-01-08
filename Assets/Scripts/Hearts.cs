@@ -108,7 +108,7 @@ void receiveDMG(double dmg)
 		
 		WeaponControl weapons = EquipmentUI.GetComponent<WeaponControl>();
 		weapons.openMenu();
-		player.SetActive(false);
+		
 	}
 	
 

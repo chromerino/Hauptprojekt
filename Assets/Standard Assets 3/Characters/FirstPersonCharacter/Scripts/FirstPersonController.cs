@@ -135,7 +135,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
         }
+        public void freeMouse()
+        {
+            m_MouseLook.SetCursorLock(false);
+        }
 
+        public void bindMouse()
+        {
+            m_MouseLook.SetCursorLock(true);
+        }
 
         private void FixedUpdate()
         {

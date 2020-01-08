@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Realtime.Messaging.Internal;
+using UnityStandardAssets.Characters.FirstPerson;
 
 /// <summary>
 /// The world MonoBehavior is in charge of creating, updating and destroying chunks based on the player's location.
@@ -321,6 +322,12 @@ public class World : MonoBehaviour
     /// Unity lifecycle update method. Actviates the player's GameObject. Updates chunks based on the player's position.
     /// </summary>
     /// 
+	public void deactivate_Player()
+    {
+		FirstPersonController a = player.GetComponent<FirstPersonController>();
+		a.freeMouse();
+		player.SetActive(false);
+	}
 	public void deactivate_ALIVE_UI()
     {
 		
@@ -347,6 +354,7 @@ public class World : MonoBehaviour
 	public void spawnPlayer()
     {
 		player.SetActive(true);
+		player.GetComponent<FirstPersonController>().bindMouse();
 		activate_ALIVE_UI();
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
 		Stamina stamina = StaminaUI.GetComponent<Stamina>();
