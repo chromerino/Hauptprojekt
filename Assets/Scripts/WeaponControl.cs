@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class WeaponControl : MonoBehaviour
+public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 {
+    [SerializeField] private GameObject Player;
     public GameObject[] MainWeapons;
     public GameObject[] SecondaryWeapons;
     public GameObject[] MeleeWeapons;
@@ -22,12 +23,12 @@ public class WeaponControl : MonoBehaviour
     public GameObject EquipmentMenu;
     public GameObject World;
     
-    void Start()
+    override public void Attached()
     {
         EquipmentMenu.SetActive(false);
     } 
-   // Update is called once per frame
-    void Update()
+
+    override public void SimulateOwner()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -77,11 +78,15 @@ public class WeaponControl : MonoBehaviour
     }
     public void meleeAttack()
     {
-
+        GameObject target = GetTarget(3);
+        if (target == null) return;
+        Debug.Log(target.ToString());
     }
     public void shoot()
     {
-
+        GameObject target = GetTarget();
+        if (target == null) return;
+        Debug.Log(target.ToString());
     }
     public void vanish()
     {
@@ -209,5 +214,25 @@ public class WeaponControl : MonoBehaviour
         currentBuff = 2;
         unfreeze(BF);
         freeze(BF[2]);
+    }
+
+    private GameObject GetTarget()
+    {
+        Camera firstPersonCamera = Player.GetComponent<Camera>();
+        RaycastHit hit;
+
+        Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit);
+        if (hit.collider == null) return null;
+        return hit.collider.gameObject;
+    }
+
+    private GameObject GetTarget(float range)
+    {
+        Camera firstPersonCamera = Player.GetComponent<Camera>();
+        RaycastHit hit;
+
+        Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit, range);
+        if (hit.collider == null) return null;
+        return hit.collider.gameObject;
     }
 }

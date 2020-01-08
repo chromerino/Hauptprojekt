@@ -11916,6 +11916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ae96cd9723fd64695c086f12ca8d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 8354284061475084103}
   MainWeapons:
   - {fileID: 5641782606818293567, guid: 912940ac08b2e0b48b1b7b35bfb102d5, type: 3}
   - {fileID: 5641782606818293567, guid: 912940ac08b2e0b48b1b7b35bfb102d5, type: 3}
@@ -12584,9 +12585,10 @@ GameObject:
   - component: {fileID: 8354284060423987571}
   - component: {fileID: 8354284060423987568}
   - component: {fileID: 8354284060423987569}
-  m_Layer: 2
+  - component: {fileID: 9056651965479297117}
+  m_Layer: 0
   m_Name: FPSController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12881,6 +12883,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4656d1053664fe3b0824bf308aaf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &9056651965479297117
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354284060423987575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &8354284060436030736
 GameObject:
   m_ObjectHideFlags: 0
@@ -12890,7 +12905,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8354284060436030735}
-  - component: {fileID: 8354284060436030738}
   - component: {fileID: 8354284060436030739}
   - component: {fileID: 3537908194454423430}
   - component: {fileID: 1297248165387916187}
@@ -12918,19 +12932,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8354284060436030738
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8354284060436030736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8354284060436030739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13025,7 +13026,7 @@ GameObject:
   - component: {fileID: 8354284061475084099}
   - component: {fileID: 8354284061475084096}
   - component: {fileID: 8354284061475084097}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
