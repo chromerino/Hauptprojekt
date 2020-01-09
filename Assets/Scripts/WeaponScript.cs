@@ -6,7 +6,7 @@ public class WeaponScript : MonoBehaviour
 {
     public double Damage;
     public double fireCD; //cooldown between shots/attacks (can also  be a knife or another melee weapon)
-    public enum WeaponType {Primary, Secundary, Melee };
+    public enum WeaponType {Primary, Secondary, Melee };
     public WeaponType type;
     public int magazineSize; //only important if non-melee weapon
     public int ammoInMagazine;
