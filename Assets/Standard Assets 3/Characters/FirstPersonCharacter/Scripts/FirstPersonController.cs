@@ -39,6 +39,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject thirdPersonModell;
 		[SerializeField] private int movementMode;
 		[SerializeField] private int previousMovementMode;
+        [SerializeField] private int animationMode;
+        [SerializeField] private int Weapontype;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
@@ -101,7 +103,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
           GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
+        public void updateAnimationMode()
+        {
+            if(!isStanding)
+            {
 
+            }
+            else
+            {
+
+            }
+        }
         public override void SimulateOwner()
         {
             if(!entity.IsOwner) return;
