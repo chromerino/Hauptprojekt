@@ -32,34 +32,52 @@ public class Hearts : MonoBehaviour
 	
 	}
 
-void FixedUpdate(){
+	void FixedUpdate()
+	{
 
-    if(CurrentHealth<0){
-	   CurrentHealth=0;
-    }else if(CurrentHealth>=MaxHealth){
-	   CurrentHealth=MaxHealth;
-    }
+		if (CurrentHealth < 0)
+		{
+			CurrentHealth = 0;
+		}
+		else if (CurrentHealth >= MaxHealth)
+		{
+			CurrentHealth = MaxHealth;
+		}
 
-    for(int i=0; i<10; i++){
 
-       empty(i);
-    }
+		for (int i = 0; i < 10; i++)
+		{
 
-    for(double i=0.5; i<=10; i+=0.5 ){
+			empty(i);
+		}
 
-       if(i%1!=0){
-           if(CurrentHealth>=i ){
-	           half(Convert.ToInt32(Math.Floor(i)));
-           }else{
-	           empty(Convert.ToInt32(Math.Floor(i)));
-           } 
-	   }else{
-	        if(CurrentHealth>=i){
-		        full(Convert.ToInt32(Math.Floor(i))-1);
-	        }
-       }
-    }
-}
+		for (double i = 0.5; i <= 10; i += 0.5)
+		{
+
+			if (i % 1 != 0)
+			{
+				if (CurrentHealth >= i)
+				{
+					half(Convert.ToInt32(Math.Floor(i)));
+				}
+				else
+				{
+					empty(Convert.ToInt32(Math.Floor(i)));
+				}
+			}
+			else
+			{
+				if (CurrentHealth >= i)
+				{
+					full(Convert.ToInt32(Math.Floor(i)) - 1);
+				}
+			}
+		}
+		if (CurrentHealth == 0)
+		{
+			die_player();
+		}
+	}
 
 void empty(int i) {
     sr=Heart[i].GetComponent<Image>();
@@ -90,7 +108,7 @@ void receiveDMG(double dmg)
 		
 		WeaponControl weapons = EquipmentUI.GetComponent<WeaponControl>();
 		weapons.openMenu();
-		player.SetActive(false);
+		
 	}
 	
 

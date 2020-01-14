@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Realtime.Messaging.Internal;
+using UnityStandardAssets.Characters.FirstPerson;
 
 /// <summary>
 /// The world MonoBehavior is in charge of creating, updating and destroying chunks based on the player's location.
@@ -26,6 +27,8 @@ public class World : MonoBehaviour
 	public GameObject StaminaUI;
 	public GameObject HealthUI;
 	public GameObject EquipmentUI;
+	public GameObject realWeapons;
+	public GameObject fadennkreuz;
 	public static CoroutineQueue queue;
 	public bool spawnable = true;
 
@@ -309,9 +312,9 @@ public class World : MonoBehaviour
 
 	public Vector3 randomSpawnpoint()
     {
-		int spawnX= Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
-		int spawnZ = Random.Range(worldSize * chunkSize / 20, worldSize * chunkSize / 20 * 19);
-		return new Vector3(spawnX, Noise.GenerateHeight(spawnX, spawnZ) + 2,
+		int spawnX= (int) Random.Range((float) (worldSize * chunkSize / 40*3), (float) (worldSize * chunkSize / 40*37));
+		int spawnZ = (int) Random.Range((float) (worldSize * chunkSize / 40*3), (float) (worldSize * chunkSize / 40 * 37));
+		return new Vector3(spawnX, Noise.getHighest(spawnX, spawnZ) + 2,
 											spawnZ);
 	}
 	
@@ -319,9 +322,40 @@ public class World : MonoBehaviour
     /// Unity lifecycle update method. Actviates the player's GameObject. Updates chunks based on the player's position.
     /// </summary>
     /// 
+	public void deactivate_Player()
+    {
+		FirstPersonController a = player.GetComponent<FirstPersonController>();
+		a.freeMouse();
+		player.SetActive(false);
+	}
+	public void deactivate_ALIVE_UI()
+    {
+		
+		ArmorUI.SetActive(false);
+		StaminaUI.SetActive(false);
+		HealthUI.SetActive(false);
+		realWeapons.SetActive(false);
+		fadennkreuz.SetActive(false);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+	}
+	public void activate_ALIVE_UI()
+	{
+		
+		ArmorUI.SetActive(true);
+		StaminaUI.SetActive(true);
+		HealthUI.SetActive(true);
+		realWeapons.SetActive(true);
+		fadennkreuz.SetActive(true);
+		
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
 	public void spawnPlayer()
     {
 		player.SetActive(true);
+		player.GetComponent<FirstPersonController>().bindMouse();
+		activate_ALIVE_UI();
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
 		Stamina stamina = StaminaUI.GetComponent<Stamina>();
 		Hearts health = HealthUI.GetComponent<Hearts>();

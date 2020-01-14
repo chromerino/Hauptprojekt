@@ -60,6 +60,18 @@ static int waterlevel=0;
 		}
 		return (int) height;
 	}
+	public static int getHighest(float x, float z)
+    {
+		if(GenerateFloorHeight(x,z)< GenerateHeight(x, z))
+        {
+			return GenerateHeight(x, z);
+
+        }
+        else
+        {
+			return GenerateFloorHeight(x,z);
+        }
+    }
 	static float fBM(float x, float z, int oct, float pers){
 		float total = 0;
 		float frequency = 1;

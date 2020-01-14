@@ -16,10 +16,15 @@ public class WeaponScript : MonoBehaviour
     public double timeBorder;
     
 
-
+    void Start()
+    {
+        timeBorder = 0;
+    }
 
     public void reload()
     {
+        Debug.Log("Reloading");
+        timeBorder = Time.time + reloadTime;
         int numberOfBullets = currentAmmo;
         if (numberOfBullets+ ammoInMagazine > magazineSize)
         {
@@ -27,7 +32,7 @@ public class WeaponScript : MonoBehaviour
         }
         currentAmmo -= numberOfBullets;
         ammoInMagazine += numberOfBullets;
-        timeBorder = Time.time + reloadTime;
+        
     }
     public void resetAmmo()
     {

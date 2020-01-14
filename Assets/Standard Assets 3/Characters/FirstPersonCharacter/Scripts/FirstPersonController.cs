@@ -67,10 +67,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Destroy(firstPersonObject);
                 Destroy(GetComponent<Rigidbody>());
                 Destroy(GetComponent<FirstPersonController>());
+                Destroy(GetComponent<CharacterController>());
             }
             else
             {
+                this.gameObject.layer = 2;
                 Destroy(thirdPersonModell);
+                Destroy(GetComponent<BoxCollider>());
                 m_Camera = Camera.main;
                 m_OriginalCameraPosition = m_Camera.transform.localPosition;
                 m_FovKick.Setup(m_Camera);
@@ -147,7 +150,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
         }
+        public void freeMouse()
+        {
+            m_MouseLook.SetCursorLock(false);
+        }
 
+        public void bindMouse()
+        {
+            m_MouseLook.SetCursorLock(true);
+        }
 
         private void FixedUpdate()
         {
@@ -198,8 +209,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
            if(sb.GetComponent<Stamina>()!=null){
                 staminaAmount=sb.GetComponent<Stamina>().stamina;
             }
-           
-            if(staminaAmount>=0){
+
+            if (staminaAmount >= 0 && !sb.GetComponent<Stamina>().isBlocked)
+            {
                 canRun=true;
             }else{
                 canRun=false;
