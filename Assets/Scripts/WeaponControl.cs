@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 {
@@ -79,13 +79,26 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     {
         GameObject target = GetTarget(3);
         if (target == null) return;
-        Debug.Log(target.ToString());
+        Debug.Log("attacking " + target.ToString());
+        var targetScript = target.GetComponentInParent<PlayerStartScript>();
+        if (targetScript == null) return;
+        var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
+        evnt.Attacker = entity;
+        evnt.Target = targetScript.entity;
+        evnt.Damage = (float)currentWeaponsStats.Damage;
+        evnt.Send();
     }
     public void shoot()
     {
         GameObject target = GetTarget();
         if (target == null) return;
-        Debug.Log(target.ToString());
+        FirstPersonController targetScript = target.GetComponent<FirstPersonController>();
+        if (targetScript == null) return;
+        var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
+        evnt.Attacker = entity;
+        evnt.Target = targetScript.entity;
+        evnt.Damage = (float)currentWeaponsStats.Damage;
+        evnt.Send();
     }
     public void vanish()
     {
