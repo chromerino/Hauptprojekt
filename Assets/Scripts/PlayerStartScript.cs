@@ -6,6 +6,7 @@ public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
 {
     [SerializeField] private GameObject world;
     [SerializeField] private GameObject UI_Canvas;
+    public GameObject healthbar;
     
     public override void Attached()
     {

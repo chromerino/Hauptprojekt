@@ -79,29 +79,28 @@ public class Hearts : MonoBehaviour
 		}
 	}
 
-void empty(int i) {
+	void empty(int i) {
     sr=Heart[i].GetComponent<Image>();
 	sr.sprite = EmptySprite;
 }
 
-void half(int i) {
+	void half(int i) {
     sr=Heart[i].GetComponent<Image>();
 	sr.sprite = HalfSprite;
 }
     
-void full(int i) {
+	void full(int i) {
     sr=Heart[i].GetComponent<Image>();
 	sr.sprite = FullSprite;
 }
 
-void receiveDMG(double dmg)
+	public void receiveDMG(double dmg)
     {
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
-		int reduction = armor.getProtection();
+		double reduction = armor.getProtection();
 		double negDMG = dmg / 10 * reduction;
-		negDMG -= negDMG % 0.5;
-		CurrentHealth -= negDMG;
-
+		dmg -= negDMG % 0.5;
+		CurrentHealth -= dmg;
 	}
 	void die_player()
 	{
