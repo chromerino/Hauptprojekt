@@ -43,6 +43,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
                 {
                     if (currentWeaponsStats.ammoInMagazine > 0)
                     {
+                        shoot();
                         Debug.Log("bumm!!! (shooting)");
                         currentWeaponsStats.ammoInMagazine--;
                     }else if (currentWeaponsStats.currentAmmo > 0)
@@ -91,8 +92,9 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public void shoot()
     {
         GameObject target = GetTarget();
+        Debug.Log("attacking " + target);
         if (target == null) return;
-        FirstPersonController targetScript = target.GetComponent<FirstPersonController>();
+        var targetScript = target.GetComponentInParent<PlayerStartScript>();
         if (targetScript == null) return;
         var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
         evnt.Attacker = entity;
