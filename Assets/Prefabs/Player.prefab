@@ -12695,6 +12695,8 @@ MonoBehaviour:
   thirdPersonModell: {fileID: 1372072746412346410}
   movementMode: 0
   previousMovementMode: 0
+  animationMode: 0
+  Weapontype: 0
   m_Jump: 0
   m_PreviouslyGrounded: 0
   m_Jumping: 0
@@ -12997,8 +12999,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8354284061475084103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 6404145561945238457}
   m_Father: {fileID: 8354284060423987574}
@@ -13029,7 +13031,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 35.2
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -14531,7 +14533,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2bd43dad59d7d844cbc32bba6bd18b37,
         type: 3}
