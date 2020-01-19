@@ -9,17 +9,21 @@ static int maxHeight = 16;
 static float smooth = 0.1f;
 static int octaves = 4;
 static float persistence = 0.5f;
-public static int seed {get; set;}
+public static int seed = -1;
 static int waterlevel=0;
 
 	static float Map(float newmin, float newmax, float origmin, float origmax, float value){
 		return Mathf.Lerp(newmin, newmax, Mathf.InverseLerp(origmin, origmax, value));
 	}
+
 	public static int GenerateFloorHeight(float x, float z){
 	float height=0;
 	int maxHeightTemp=(int)(maxHeight*0.75);
-	
 
+		if (seed < 0)
+		{
+			seed = Random.Range(0, 5000) * Random.Range(0, 5000);
+		}
 		height += Map(0, (int) (maxHeightTemp), 0, 1, fBM((x+seed*2)*smooth/5,(z+seed*2)*smooth/5, octaves+2, persistence));
 		
 		return (int) height;
@@ -37,26 +41,30 @@ static int waterlevel=0;
 		z<=World.worldSize*World.chunkSize/20 || z>=World.worldSize*World.chunkSize/20*19){
 		height=20;
 		}else{
-	/*
-	    if(x<=World.worldSize*World.chunkSize/10 || x>=World.worldSize*World.chunkSize/10*9 || 
-		z<=World.worldSize*World.chunkSize/10 || z>=World.worldSize*World.chunkSize/10*9){
-		height+=2;
-		maxHeightTemp+=5;
-		if(x<=World.worldSize*World.chunkSize/20 || x>=World.worldSize*World.chunkSize/20*19 || 
-		z<=World.worldSize*World.chunkSize/20 || z>=World.worldSize*World.chunkSize/20*19){
+			/*
+				if(x<=World.worldSize*World.chunkSize/10 || x>=World.worldSize*World.chunkSize/10*9 || 
+				z<=World.worldSize*World.chunkSize/10 || z>=World.worldSize*World.chunkSize/10*9){
+				height+=2;
+				maxHeightTemp+=5;
+				if(x<=World.worldSize*World.chunkSize/20 || x>=World.worldSize*World.chunkSize/20*19 || 
+				z<=World.worldSize*World.chunkSize/20 || z>=World.worldSize*World.chunkSize/20*19){
 
-		height+=5;
-		maxHeightTemp+=12;
+				height+=5;
+				maxHeightTemp+=12;
 
-		}
-		}
-		if(x>=World.worldSize*World.chunkSize/10*4 && x<=World.worldSize*World.chunkSize/10*6 && z>=World.worldSize*World.chunkSize/10*4 && z<=World.worldSize*World.chunkSize/10*6){
+				}
+				}
+				if(x>=World.worldSize*World.chunkSize/10*4 && x<=World.worldSize*World.chunkSize/10*6 && z>=World.worldSize*World.chunkSize/10*4 && z<=World.worldSize*World.chunkSize/10*6){
 
-		
-		maxHeightTemp+=5;
 
-		}*/
-		height += Map(0, maxHeight, 0, 1, fBM((x+seed)*smooth,(z+seed)*smooth, octaves, persistence));
+				maxHeightTemp+=5;
+
+				}*/
+			if (seed < 0)
+			{
+				seed = Random.Range(0, 5000) * Random.Range(0, 5000);
+			}
+			height += Map(0, maxHeight, 0, 1, fBM((x+seed)*smooth,(z+seed)*smooth, octaves, persistence));
 		}
 		return (int) height;
 	}

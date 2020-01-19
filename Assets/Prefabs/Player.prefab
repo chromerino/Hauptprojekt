@@ -1273,6 +1273,8 @@ MonoBehaviour:
   slider: {fileID: 5463933314007451578}
   stamina: 150
   maxStamina: 150
+  isBlocked: 0
+  unblockTime: 0
   mode: 3
 --- !u!1 &826805458542532762
 GameObject:
@@ -10877,7 +10879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7935208167131473634}
   - component: {fileID: 1485413193681826555}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12975,6 +12977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   world: {fileID: 7024552170354334140}
   UI_Canvas: {fileID: 7350835734714629192}
+  healthbar: {fileID: 3490477376475434070}
 --- !u!23 &1297248165387916187
 MeshRenderer:
   m_ObjectHideFlags: 0

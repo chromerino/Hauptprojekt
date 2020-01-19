@@ -58,8 +58,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public override void Attached()
         {
-            
-
             if (!entity.IsOwner)
             {
                 Destroy(firstPersonObject);
