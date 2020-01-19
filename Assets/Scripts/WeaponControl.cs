@@ -240,6 +240,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit);
         if (hit.collider == null) return null;
         var script = hit.collider.gameObject.GetComponent<FirstPersonController>();
+		if (script == null) return null;
         if (script.entity.IsOwner) return null;
         return hit.collider.gameObject;
     }
