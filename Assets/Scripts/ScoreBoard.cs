@@ -53,13 +53,13 @@ public class ScoreBoard : Bolt.EntityBehaviour<IPlayerState>
 
 	void RefreshScore()
 	{
-		myScore.text = (state.kills * 1).ToString();
+		myScore.text = (state.Score * 1).ToString();
 		myKill.text = (state.kills).ToString();
 		myDeath.text = (state.deaths).ToString();
 
-		theirScore.text = (state.deaths * 1).ToString();
-		theirKill.text = (state.deaths).ToString();
-		theirDeath.text = (state.kills).ToString();
+		//theirScore.text = (state.deaths * 1).ToString();
+		//theirKill.text = (state.deaths).ToString();
+		//theirDeath.text = (state.kills).ToString();
 
 	}
 }
