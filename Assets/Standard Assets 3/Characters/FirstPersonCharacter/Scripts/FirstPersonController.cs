@@ -130,8 +130,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void PlayLandingSound()
+        public void PlayLandingSound()
         {
+            LandingSound evnt = new LandingSound();
+            evnt.Player = entity;
+            evnt.Send();
+
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
@@ -207,8 +211,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void PlayJumpSound()
+        public void PlayJumpSound()
         {
+            JumpSound evnt = new JumpSound();
+            evnt.Player = entity;
+            evnt.Send();
+
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
         }
@@ -233,12 +241,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void PlayFootStepAudio()
+        public void PlayFootStepAudio()
         {
             if (!m_CharacterController.isGrounded)
             {
                 return;
             }
+
+            FootStepSound evnt = new FootStepSound();
+            evnt.Player = entity;
+            evnt.Send();
+
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);

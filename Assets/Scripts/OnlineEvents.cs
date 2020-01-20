@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [BoltGlobalBehaviour]
 public class OnlineEvents : Bolt.GlobalEventListener
@@ -32,5 +33,23 @@ public class OnlineEvents : Bolt.GlobalEventListener
             targetScript.receiveDMG(evnt.Damage);
         }
         // Sonstige Effekte
+    }
+
+    public override void OnEvent(FootStepSound evnt)
+    {
+        FirstPersonController script = evnt.Player.gameObject.GetComponent<PlayerStartScript>().fps;
+        script.PlayFootStepAudio();
+    }
+
+    public override void OnEvent(JumpSound evnt)
+    {
+        FirstPersonController script = evnt.Player.gameObject.GetComponent<PlayerStartScript>().fps;
+        script.PlayJumpSound();
+    }
+
+    public override void OnEvent(LandingSound evnt)
+    {
+        FirstPersonController script = evnt.Player.gameObject.GetComponent<PlayerStartScript>().fps;
+        script.PlayLandingSound();
     }
 }

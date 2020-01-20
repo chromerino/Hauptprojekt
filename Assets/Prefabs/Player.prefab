@@ -12978,6 +12978,7 @@ MonoBehaviour:
   world: {fileID: 7024552170354334140}
   UI_Canvas: {fileID: 7350835734714629192}
   healthbar: {fileID: 3490477376475434070}
+  fps: {fileID: 8354284060423987570}
 --- !u!23 &1297248165387916187
 MeshRenderer:
   m_ObjectHideFlags: 0
