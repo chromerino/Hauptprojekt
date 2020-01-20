@@ -20,16 +20,10 @@ public class Menu : Bolt.GlobalEventListener
     {
         mainMenu.SetActive(false);
         clientMenu.SetActive(true);
-        BoltLauncher.StartClient();
     }
 
     public void NavigateToMainMenu()
     {
-        if (clientMenu.activeSelf)
-        {
-            BoltLauncher.Shutdown();
-        }
-
         hostMenu.SetActive(false);
         clientMenu.SetActive(false);
         mainMenu.SetActive(true);
@@ -46,6 +40,8 @@ public class Menu : Bolt.GlobalEventListener
 
     public void StartClient()
     {
+        BoltLauncher.StartClient();
+
         string matchName = joinname.GetComponent<UnityEngine.UI.Text>().text;
         BoltMatchmaking.JoinSession(matchName);
     }
