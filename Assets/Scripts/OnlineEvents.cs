@@ -38,21 +38,21 @@ public class OnlineEvents : Bolt.GlobalEventListener
     public override void OnEvent(FootStepSound evnt)
     {
         if (evnt.Player.IsOwner) return;
-        FirstPersonController script = evnt.Player.gameObject.GetComponent<PlayerStartScript>().fps;
-        script.PlayFootStepAudio();
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
+        script.PlayFootstepSound();
     }
 
     public override void OnEvent(JumpSound evnt)
     {
         if (evnt.Player.IsOwner) return;
-        FirstPersonController script = evnt.Player.gameObject.GetComponent<PlayerStartScript>().fps;
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
         script.PlayJumpSound();
     }
 
     public override void OnEvent(LandingSound evnt)
     {
         if (evnt.Player.IsOwner) return;
-        FirstPersonController script = evnt.Player.gameObject.GetComponent<PlayerStartScript>().fps;
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
         script.PlayLandingSound();
     }
 }
