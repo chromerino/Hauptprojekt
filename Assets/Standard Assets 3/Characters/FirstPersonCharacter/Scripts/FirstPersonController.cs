@@ -107,15 +107,63 @@ namespace UnityStandardAssets.Characters.FirstPerson
           GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
+        /*
+         * animationMode Legende:
+         * 0=stehen ohne waffe
+         * 1= laufen wohne Waffe
+         * 2=Sprinten ohne Waffe
+         * 3= stehen mit Primary
+         * 4= stehen mit secondary
+         * 5= stehen mit Melee
+         * 6= laufen mit Primary
+         * 7= laufen mit Secondary
+         * 8= laufen mit Melee
+         * */
         public void updateAnimationMode()
         {
             if(!isStanding)
             {
-
+                if(movementMode==2)
+                {
+                    if (Weapontype = 0)
+                    {
+                        animationMode = 1;
+                    }
+                    else if(Weapontype==1)
+                    {
+                        animationMode = 6;
+                    }else if(Weapontype==2)
+                    {
+                        animationMode = 7;
+                    }
+                    else if(Weapontype==3)
+                    {
+                        animationMode = 8;
+                    }
+                }
+                
             }
             else
             {
-
+                if(Weapontype!=0)
+                {
+                    if (Weapontype = 1)
+                    {
+                        animationMode = 3;
+                    }
+                    else if (Weapontype == 2)
+                    {
+                        animationMode == 4;
+                    }
+                    else
+                    {
+                        animationMode = 5;
+                    }
+                }
+                else
+                {
+                    animationMode = 0;
+                }
             }
         }
         public override void SimulateOwner()
