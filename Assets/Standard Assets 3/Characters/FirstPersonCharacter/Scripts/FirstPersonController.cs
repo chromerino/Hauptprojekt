@@ -132,7 +132,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void PlayLandingSound()
         {
-            LandingSound evnt = new LandingSound();
+            LandingSound evnt = LandingSound.Create(Bolt.GlobalTargets.Everyone);
             evnt.Player = entity;
             evnt.Send();
 
@@ -213,7 +213,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void PlayJumpSound()
         {
-            JumpSound evnt = new JumpSound();
+            JumpSound evnt = JumpSound.Create(Bolt.GlobalTargets.Everyone);
             evnt.Player = entity;
             evnt.Send();
 
@@ -248,7 +248,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
 
-            FootStepSound evnt = new FootStepSound();
+            FootStepSound evnt = FootStepSound.Create(Bolt.GlobalTargets.Everyone);
             evnt.Player = entity;
             evnt.Send();
 
