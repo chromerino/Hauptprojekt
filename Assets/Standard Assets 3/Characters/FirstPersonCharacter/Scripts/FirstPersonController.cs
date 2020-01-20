@@ -41,6 +41,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] private int previousMovementMode;
         [SerializeField] private int animationMode;
         [SerializeField] private int Weapontype;
+        [SerializedField] private int previousAnimationMode;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
