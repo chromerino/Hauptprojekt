@@ -10,7 +10,9 @@ public class ScoreBoard : Bolt.EntityBehaviour<IPlayerState>
 	public TMPro.TextMeshProUGUI myScore;
 	public TMPro.TextMeshProUGUI myKill;
 	public TMPro.TextMeshProUGUI myDeath;
-	public TMPro.TextMeshProUGUI theirScore;
+    public TMPro.TextMeshProUGUI myPlayer;
+    public TMPro.TextMeshProUGUI theirPlayer;
+    public TMPro.TextMeshProUGUI theirScore;
 	public TMPro.TextMeshProUGUI theirKill;
 	public TMPro.TextMeshProUGUI theirDeath;
 
@@ -21,7 +23,8 @@ public class ScoreBoard : Bolt.EntityBehaviour<IPlayerState>
 
 		state.kills = 0;
 		state.deaths = 0;
-		RefreshScore();
+
+        RefreshScore();
 		this.gameObject.SetActive(false);
 
 	}
