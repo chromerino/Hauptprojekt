@@ -6,6 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 {
+    [SerializeField] private GameObject FirstPersonObject;
     [SerializeField] private GameObject Player;
     public GameObject[] MainWeapons;
     public GameObject[] SecondaryWeapons;
@@ -39,7 +40,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
             //if(Time.time>= currentWeaponsStats.getBorder())
             if (Time.time >= nextPossibleAttack)
             {
-                nextPossibleAttack = Time.time + 0.5f;
+                nextPossibleAttack = Time.time + 0.15f;
                 if (currentWeaponsStats.type == WeaponScript.WeaponType.Melee)
                 {
                     meleeAttack();
@@ -103,7 +104,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         evnt.Damage = (float)currentWeaponsStats.Damage;
 
         evnt.SoundIndex = weaponIndex;
-        Player.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(weaponIndex);
+        FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(weaponIndex);
 
         evnt.Send();
     }
@@ -124,9 +125,12 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         evnt.Damage = (float)currentWeaponsStats.Damage;
 
         evnt.SoundIndex = 0;
-        Player.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(0);
+        FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(0);
 
         evnt.Send();
+
+        var mouseLook = Player.GetComponent<FirstPersonController>().GetMouseLook();
+        mouseLook.SetRecoil(Random.Range(-2.5f, 2.5f), Random.Range(0.1f, 8));
     }
     public void vanish()
     {
@@ -258,7 +262,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 
     private GameObject GetTarget()
     {
-        Camera firstPersonCamera = Player.GetComponent<Camera>();
+        Camera firstPersonCamera = FirstPersonObject.GetComponent<Camera>();
         RaycastHit hit;
 
         Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit);
@@ -270,7 +274,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 
     private GameObject GetTarget(float range)
     {
-        Camera firstPersonCamera = Player.GetComponent<Camera>();
+        Camera firstPersonCamera = FirstPersonObject.GetComponent<Camera>();
         RaycastHit hit;
 
         Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit, range);

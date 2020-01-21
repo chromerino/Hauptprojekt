@@ -11918,7 +11918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ae96cd9723fd64695c086f12ca8d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 8354284061475084103}
+  FirstPersonObject: {fileID: 8354284061475084103}
+  Player: {fileID: 8354284060423987575}
   MainWeapons:
   - {fileID: 5641782606818293567, guid: 912940ac08b2e0b48b1b7b35bfb102d5, type: 3}
   - {fileID: 5641782606818293567, guid: 912940ac08b2e0b48b1b7b35bfb102d5, type: 3}

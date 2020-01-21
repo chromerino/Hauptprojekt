@@ -134,6 +134,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             return entity;
         }
 
+        public MouseLook GetMouseLook()
+        {
+            return m_MouseLook;
+        }
+
         private void PlayLandingSound()
         {
             LandingSound evnt = LandingSound.Create(Bolt.GlobalTargets.Others);
