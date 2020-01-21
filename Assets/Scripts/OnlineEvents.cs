@@ -27,12 +27,13 @@ public class OnlineEvents : Bolt.GlobalEventListener
 
     public override void OnEvent(Attack evnt)
     {
-        evnt.Attacker.gameObject.GetComponent<PlayerStartScript>().PlayWeaponSound(evnt.SoundIndex);
+        var attackerScript = evnt.Attacker.gameObject.GetComponent<PlayerStartScript>();
+        attackerScript.PlayWeaponSound(evnt.SoundIndex);
 
         if (evnt.Target != null || evnt.Target.IsOwner)
         {
             var targetScript = evnt.Target.gameObject.GetComponent<PlayerStartScript>().healthbar.GetComponent<Hearts>();
-            bool died = targetScript.receiveDMG(evnt.Damage);
+            bool died = targetScript.receiveDMG(evnt.Damage, attackerScript.PlayerCharacter.transform.position);
             if (died)
             {
                 evnt.Attacker.GetState<IPlayerState>().kills++;

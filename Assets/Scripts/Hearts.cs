@@ -8,7 +8,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class Hearts : MonoBehaviour
 {
 
-	// Start is called before the first frame update
+	[SerializeField] private CanvasScript canvasScript;
 	public GameObject player;
 	public GameObject[] Heart;
 	public Sprite EmptySprite;
@@ -21,9 +21,12 @@ public class Hearts : MonoBehaviour
 	public GameObject EquipmentUI;
 	public GameObject ArmorUI;
 	
+	private Vector3 test; //LÖSCHEN!!!
 
 
 	void Start(){
+		test = Vector3.zero; //LÖSCHEN
+
 	Stamina st = Staminabar.GetComponent<Stamina>();
 	int i =st.getStamina();
 	if(10<MaxHealth){
@@ -35,6 +38,12 @@ public class Hearts : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			if(test == Vector3.zero) test = player.transform.position;
+			canvasScript.SpawnIndicator(player.transform, test);
+		}
+
 
 		if (CurrentHealth < 0)
 		{
@@ -95,18 +104,21 @@ public class Hearts : MonoBehaviour
 	sr.sprite = FullSprite;
 }
 
-	public bool receiveDMG(double dmg)
+	public bool receiveDMG(double dmg, Vector3 direction)
     {
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
 		double reduction = armor.getProtection();
 		double negDMG = dmg / 10 * reduction;
 		dmg -= negDMG % 0.5;
 		CurrentHealth -= dmg;
+
+		canvasScript.SpawnIndicator(transform, direction);
+
 		return CurrentHealth <= 0;
 	}
 	void die_player()
 	{
-		
+		player.gameObject.GetComponent<FirstPersonController>().GetEntity().GetState<IPlayerState>().deaths++;
 		WeaponControl weapons = EquipmentUI.GetComponent<WeaponControl>();
 		weapons.openMenu();
 
