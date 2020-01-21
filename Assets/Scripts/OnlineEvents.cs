@@ -32,7 +32,11 @@ public class OnlineEvents : Bolt.GlobalEventListener
         if (evnt.Target != null || evnt.Target.IsOwner)
         {
             var targetScript = evnt.Target.gameObject.GetComponent<PlayerStartScript>().healthbar.GetComponent<Hearts>();
-            targetScript.receiveDMG(evnt.Damage);
+            bool died = targetScript.receiveDMG(evnt.Damage);
+            if (died)
+            {
+                evnt.Attacker.GetState<IPlayerState>().kills++;
+            }
         }
         // Sonstige Effekte
     }

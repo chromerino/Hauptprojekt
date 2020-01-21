@@ -94,20 +94,21 @@ public class Hearts : MonoBehaviour
 	sr.sprite = FullSprite;
 }
 
-	public void receiveDMG(double dmg)
+	public bool receiveDMG(double dmg)
     {
 		ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
 		double reduction = armor.getProtection();
 		double negDMG = dmg / 10 * reduction;
 		dmg -= negDMG % 0.5;
 		CurrentHealth -= dmg;
+		return CurrentHealth <= 0;
 	}
 	void die_player()
 	{
 		
 		WeaponControl weapons = EquipmentUI.GetComponent<WeaponControl>();
 		weapons.openMenu();
-		
+		player.SetActive(false);
 	}
 	
 

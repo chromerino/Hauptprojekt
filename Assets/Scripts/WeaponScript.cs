@@ -5,15 +5,15 @@ using UnityEngine;
 public class WeaponScript : MonoBehaviour
 {
     public double Damage;
-    public double fireCD; //cooldown between shots/attacks (can also  be a knife or another melee weapon)
+    public float fireCD; //cooldown between shots/attacks (can also  be a knife or another melee weapon)
     public enum WeaponType {Primary, Secundary, Melee };
     public WeaponType type;
     public int magazineSize; //only important if non-melee weapon
     public int ammoInMagazine;
     public int ammoMax; //maximum ammunation possible : only important if non-melee weapon
     public int currentAmmo;
-    public double reloadTime; //only important if non-melee weapon
-    public double timeBorder;
+    public float reloadTime; //only important if non-melee weapon
+    public float timeBorder;
     
 
     void Start()
@@ -44,7 +44,7 @@ public class WeaponScript : MonoBehaviour
         currentAmmo = ammoMax+2*magazineSize;
         ammoInMagazine = magazineSize;
     }
-    public double getBorder()
+    public float getBorder()
     {
         return timeBorder;
     }

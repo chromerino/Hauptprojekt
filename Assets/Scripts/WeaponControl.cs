@@ -22,19 +22,24 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public GameObject ArmorUI;
     public GameObject EquipmentMenu;
     public GameObject World;
+
+    private float nextPossibleAttack;
     
     override public void Attached()
     {
+        nextPossibleAttack = Time.time;
         EquipmentMenu.SetActive(false);
     } 
 
     override public void SimulateOwner()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            
-            if(Time.time>= currentWeaponsStats.getBorder())
+
+            //if(Time.time>= currentWeaponsStats.getBorder())
+            if (Time.time >= nextPossibleAttack)
             {
+                nextPossibleAttack = Time.time + 0.5f;
                 if (currentWeaponsStats.type == WeaponScript.WeaponType.Melee)
                 {
                     meleeAttack();
