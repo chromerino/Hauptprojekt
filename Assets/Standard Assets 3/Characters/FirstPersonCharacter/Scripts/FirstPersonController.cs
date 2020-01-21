@@ -125,7 +125,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if(movementMode==2)
                 {
-                    if (Weapontype = 0)
+                    if (Weapontype == 0)
                     {
                         animationMode = 1;
                     }
@@ -147,13 +147,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if(Weapontype!=0)
                 {
-                    if (Weapontype = 1)
+                    if (Weapontype == 1)
                     {
                         animationMode = 3;
                     }
                     else if (Weapontype == 2)
                     {
-                        animationMode == 4;
+                        animationMode = 4;
                     }
                     else
                     {
