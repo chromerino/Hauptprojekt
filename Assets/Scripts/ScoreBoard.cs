@@ -7,12 +7,12 @@ public class ScoreBoard : Bolt.EntityBehaviour<IPlayerState>
 
 {
 
-	public TMPro.TextMeshProUGUI myScore;
+	//public TMPro.TextMeshProUGUI myScore;
 	public TMPro.TextMeshProUGUI myKill;
 	public TMPro.TextMeshProUGUI myDeath;
     public TMPro.TextMeshProUGUI myPlayer;
     public TMPro.TextMeshProUGUI theirPlayer;
-    public TMPro.TextMeshProUGUI theirScore;
+    //public TMPro.TextMeshProUGUI theirScore;
 	public TMPro.TextMeshProUGUI theirKill;
 	public TMPro.TextMeshProUGUI theirDeath;
 
@@ -56,11 +56,11 @@ public class ScoreBoard : Bolt.EntityBehaviour<IPlayerState>
 
 	void RefreshScore()
 	{
-		myScore.text = (state.kills * 1).ToString();
+		//myScore.text = (state.kills * 1).ToString();
 		myKill.text = (state.kills).ToString();
 		myDeath.text = (state.deaths).ToString();
 
-		theirScore.text = (state.deaths * 1).ToString();
+		//theirScore.text = (state.deaths * 1).ToString();
 		theirKill.text = (state.deaths).ToString();
 		theirDeath.text = (state.kills).ToString();
 
