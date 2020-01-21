@@ -27,7 +27,10 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     {
         EquipmentMenu.SetActive(false);
     } 
-
+    public GameObject getCurrentWeapon()
+    {
+        return currentlyEquippedWeapon;
+    }
     override public void SimulateOwner()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
