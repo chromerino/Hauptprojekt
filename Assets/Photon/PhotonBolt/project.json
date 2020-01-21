@@ -3445,6 +3445,42 @@
       "Groups": [
         "samples"
       ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "Visible",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeBool, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "Player",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "PlayerVisibilityChanged",
+      "Guid": "7313d234-f435-43a3-984b-691b26598544",
+      "Groups": [
+        "samples"
+      ]
     }
   ],
   "ActiveGroup": "samples"

@@ -129,6 +129,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
+        public BoltEntity GetEntity()
+        {
+            return entity;
+        }
 
         private void PlayLandingSound()
         {

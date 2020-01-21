@@ -12988,7 +12988,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 92f6c6f7d42cf9f4ea2d262967807d38, type: 3}
   - {fileID: 8300000, guid: 84731970f8277e8439922e3744942364, type: 3}
   healthbar: {fileID: 3490477376475434070}
-  fps: {fileID: 8354284060423987570}
+  PlayerCharacter: {fileID: 8354284060423987575}
 --- !u!23 &1297248165387916187
 MeshRenderer:
   m_ObjectHideFlags: 0

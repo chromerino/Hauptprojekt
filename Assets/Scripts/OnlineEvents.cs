@@ -61,4 +61,10 @@ public class OnlineEvents : Bolt.GlobalEventListener
         var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
         script.PlayLandingSound();
     }
+
+    public override void OnEvent(PlayerVisibilityChanged evnt)
+    {
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
+        script.TogglePlayerVisibility(evnt.Visible);
+    }
 }

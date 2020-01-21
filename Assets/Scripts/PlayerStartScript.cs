@@ -13,7 +13,7 @@ public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
     [SerializeField] private AudioSource m_AudioSource;
     [SerializeField] private AudioClip[] WeaponSounds;
     public GameObject healthbar;
-    public FirstPersonController fps;
+    public GameObject PlayerCharacter;
 
     public override void Attached()
     {
@@ -47,5 +47,10 @@ public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
         if (index >= WeaponSounds.Length) return;
         m_AudioSource.clip = WeaponSounds[index];
         m_AudioSource.Play();
+    }
+
+    public void TogglePlayerVisibility(bool visibility)
+    {
+        PlayerCharacter.SetActive(visibility);
     }
 }

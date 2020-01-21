@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Hearts : MonoBehaviour
 {
@@ -108,6 +109,11 @@ public class Hearts : MonoBehaviour
 		
 		WeaponControl weapons = EquipmentUI.GetComponent<WeaponControl>();
 		weapons.openMenu();
+
+		var evnt = PlayerVisibilityChanged.Create(Bolt.GlobalTargets.Others);
+		evnt.Player = player.GetComponent<FirstPersonController>().GetEntity();
+		evnt.Visible = false;
+		evnt.Send();
 		player.SetActive(false);
 	}
 	
