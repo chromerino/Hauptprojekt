@@ -11,6 +11,7 @@ public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
     [SerializeField] private AudioClip m_JumpSound;
     [SerializeField] private AudioClip m_LandSound;
     [SerializeField] private AudioSource m_AudioSource;
+    [SerializeField] private AudioClip[] WeaponSounds;
     public GameObject healthbar;
     public FirstPersonController fps;
 
@@ -38,6 +39,13 @@ public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
     public void PlayLandingSound()
     {
         m_AudioSource.clip = m_LandSound;
+        m_AudioSource.Play();
+    }
+
+    public void PlayWeaponSound(int index)
+    {
+        if (index >= WeaponSounds.Length) return;
+        m_AudioSource.clip = WeaponSounds[index];
         m_AudioSource.Play();
     }
 }

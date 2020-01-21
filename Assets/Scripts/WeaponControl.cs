@@ -81,27 +81,46 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public void meleeAttack()
     {
         GameObject target = GetTarget(3);
-        if (target == null) return;
-        Debug.Log("attacking " + target.ToString());
-        var targetScript = target.GetComponentInParent<PlayerStartScript>();
-        if (targetScript == null) return;
-        var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
+        var evnt = Attack.Create(Bolt.GlobalTargets.Others);
+        int weaponIndex = 2;
+
+        if (target != null)
+        {
+            var targetScript = target.GetComponentInParent<PlayerStartScript>();
+            if (targetScript != null)
+            {
+                evnt.Target = targetScript.entity;
+                weaponIndex = 1;
+            }
+        }
+        
         evnt.Attacker = entity;
-        evnt.Target = targetScript.entity;
         evnt.Damage = (float)currentWeaponsStats.Damage;
+
+        evnt.SoundIndex = weaponIndex;
+        Player.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(weaponIndex);
+
         evnt.Send();
     }
     public void shoot()
     {
         GameObject target = GetTarget();
-        Debug.Log("attacking " + target);
-        if (target == null) return;
-        var targetScript = target.GetComponentInParent<PlayerStartScript>();
-        if (targetScript == null) return;
-        var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
+        var evnt = Attack.Create(Bolt.GlobalTargets.Others);
+        if (target != null)
+        {
+            var targetScript = target.GetComponentInParent<PlayerStartScript>();
+            if (targetScript != null)
+            {
+                evnt.Target = targetScript.entity;
+            }
+        }
+
         evnt.Attacker = entity;
-        evnt.Target = targetScript.entity;
         evnt.Damage = (float)currentWeaponsStats.Damage;
+
+        evnt.SoundIndex = 0;
+        Player.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(0);
+
         evnt.Send();
     }
     public void vanish()

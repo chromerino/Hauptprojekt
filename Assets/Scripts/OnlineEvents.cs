@@ -27,7 +27,9 @@ public class OnlineEvents : Bolt.GlobalEventListener
 
     public override void OnEvent(Attack evnt)
     {
-        if (evnt.Target.IsOwner)
+        evnt.Attacker.gameObject.GetComponent<PlayerStartScript>().PlayWeaponSound(evnt.SoundIndex);
+
+        if (evnt.Target != null || evnt.Target.IsOwner)
         {
             var targetScript = evnt.Target.gameObject.GetComponent<PlayerStartScript>().healthbar.GetComponent<Hearts>();
             targetScript.receiveDMG(evnt.Damage);

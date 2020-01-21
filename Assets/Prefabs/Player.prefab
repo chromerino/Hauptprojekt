@@ -12983,6 +12983,10 @@ MonoBehaviour:
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
   m_AudioSource: {fileID: 8354284060423987568}
+  WeaponSounds:
+  - {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
+  - {fileID: 8300000, guid: 92f6c6f7d42cf9f4ea2d262967807d38, type: 3}
+  - {fileID: 8300000, guid: 84731970f8277e8439922e3744942364, type: 3}
   healthbar: {fileID: 3490477376475434070}
   fps: {fileID: 8354284060423987570}
 --- !u!23 &1297248165387916187
