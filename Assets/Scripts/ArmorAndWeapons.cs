@@ -30,23 +30,28 @@ public class ArmorAndWeapons : MonoBehaviour
 
 	public void equipRandomArmorpiece()
 	{
+	List<int> freeArmorslots=new List<int>();
 		for (int i = 0; i < 4; i++)
 		{
-			List<int> freeArmorslots=null;
+	
 
-			if (Armor[i].activeSelf)
+			if (!Armor[i].activeSelf)
             {
 				freeArmorslots.Add(i);
 
             }
-            if (freeArmorslots.Count!= 0)
+
+
+		
+		}	
+
+		
+		if (freeArmorslots==null ||freeArmorslots.Count!= 0)
             {
+				
 				int r=freeArmorslots.IndexOf(Random.Range(0, freeArmorslots.Count));
 				equipItem(r);
 			}
-		
-			
-		}
 	}
 
 	public int getProtection()

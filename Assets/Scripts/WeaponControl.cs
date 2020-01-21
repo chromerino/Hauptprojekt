@@ -21,6 +21,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     private WeaponScript currentWeaponsStats;
     public GameObject ArmorUI;
     public GameObject EquipmentMenu;
+    public GameObject ammoText;
     public GameObject World;
     
     override public void Attached()
@@ -30,6 +31,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 
     override public void SimulateOwner()
     {
+        
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             
@@ -77,6 +79,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
             Debug.Log("melee-weapon equipped!");
             equipMeleeWeapon();
         }
+        updateAmmoText();
     }
     public void meleeAttack()
     {
@@ -103,6 +106,10 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         evnt.Target = targetScript.entity;
         evnt.Damage = (float)currentWeaponsStats.Damage;
         evnt.Send();
+    }
+    public void updateAmmoText(){
+        string pen = "Ammo: "+currentWeaponsStats.ammoInMagazine+"/"+currentWeaponsStats.currentAmmo;
+        ammoText.GetComponent<Text>().text=pen;
     }
     public void vanish()
     {
@@ -135,7 +142,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     
     public void onSpawn()
     {
-        
+        Debug.Log(currentBuff);
         if (currentBuff == 1)
         {
             MainWeapons[currentMainWeapon].GetComponent<WeaponScript>().moreAmmo();
@@ -149,7 +156,9 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
             if (currentBuff == 2)
             {
                 ArmorAndWeapons armor = ArmorUI.GetComponent<ArmorAndWeapons>();
+                
                 armor.equipRandomArmorpiece();
+               
             }
             else
             {
