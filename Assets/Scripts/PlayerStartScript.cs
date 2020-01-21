@@ -44,7 +44,7 @@ public class PlayerStartScript : Bolt.EntityBehaviour<IPlayerState>
 
     public void PlayWeaponSound(int index)
     {
-        if (index >= WeaponSounds.Length) return;
+        if (index >= WeaponSounds.Length || index < 0) return;
         m_AudioSource.clip = WeaponSounds[index];
         m_AudioSource.Play();
     }

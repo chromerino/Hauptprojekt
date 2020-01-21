@@ -25,19 +25,25 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public GameObject World;
 
     private float nextPossibleAttack;
+    private bool stoppedShooting;
     
     override public void Attached()
     {
         nextPossibleAttack = Time.time;
         EquipmentMenu.SetActive(false);
+        stoppedShooting = true;
     } 
 
     override public void SimulateOwner()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if(Input.GetKeyUp(KeyCode.Mouse0))
         {
+            stoppedShooting = true;
+        }
 
-            //if(Time.time>= currentWeaponsStats.getBorder())
+        if (Input.GetKey(KeyCode.Mouse0) && (currentWeaponsStats.automatic || stoppedShooting))
+        {
+            stoppedShooting = false;
             if (Time.time >= nextPossibleAttack)
             {
                 nextPossibleAttack = Time.time + 0.15f;
@@ -88,7 +94,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     {
         GameObject target = GetTarget(3);
         var evnt = Attack.Create(Bolt.GlobalTargets.Others);
-        int weaponIndex = 2;
+        int weaponIndex = currentWeaponsStats.reloadSoundId;
 
         if (target != null)
         {
@@ -96,7 +102,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
             if (targetScript != null)
             {
                 evnt.Target = targetScript.entity;
-                weaponIndex = 1;
+                weaponIndex = currentWeaponsStats.ShotSoundId;
             }
         }
         
@@ -124,13 +130,13 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         evnt.Attacker = entity;
         evnt.Damage = (float)currentWeaponsStats.Damage;
 
-        evnt.SoundIndex = 0;
-        FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(0);
+        evnt.SoundIndex = currentWeaponsStats.ShotSoundId;
+        FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(currentWeaponsStats.ShotSoundId);
 
         evnt.Send();
 
         var mouseLook = Player.GetComponent<FirstPersonController>().GetMouseLook();
-        mouseLook.SetRecoil(Random.Range(-2.5f, 2.5f), Random.Range(0.1f, 8));
+        mouseLook.SetRecoil(Random.Range(currentWeaponsStats.sideRecoilLimit * -1, currentWeaponsStats.sideRecoilLimit), Random.Range(0.1f, currentWeaponsStats.upRecoilLimit));
     }
     public void vanish()
     {

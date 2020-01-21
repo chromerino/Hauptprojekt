@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 5
-  fireCD: 2
+  fireCD: 0.5
   type: 2
   magazineSize: 0
   ammoInMagazine: 0
@@ -55,6 +55,10 @@ MonoBehaviour:
   currentAmmo: 0
   reloadTime: 5
   timeBorder: 0
+  sideRecoilLimit: 0
+  upRecoilLimit: 0
+  ShotSoundId: 1
+  reloadSoundId: 2
 --- !u!1 &1323467669574595492
 GameObject:
   m_ObjectHideFlags: 0

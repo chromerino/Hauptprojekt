@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
-    public double Damage;
+    public float Damage;
+    public bool automatic;
     public float fireCD; //cooldown between shots/attacks (can also  be a knife or another melee weapon)
     public enum WeaponType {Primary, Secundary, Melee };
     public WeaponType type;
@@ -14,6 +15,10 @@ public class WeaponScript : MonoBehaviour
     public int currentAmmo;
     public float reloadTime; //only important if non-melee weapon
     public float timeBorder;
+    public float sideRecoilLimit;
+    public float upRecoilLimit;
+    public int ShotSoundId;
+    public int reloadSoundId; // Acts as sound for missed attack if melee weapon
     
 
     void Start()
