@@ -37,14 +37,7 @@ public class Hearts : MonoBehaviour
 	}
 
 	void FixedUpdate()
-	{
-		if(Input.GetKeyDown(KeyCode.J))
-		{
-			if(test == Vector3.zero) test = player.transform.position;
-			canvasScript.SpawnIndicator(player.transform, test);
-		}
-
-
+	{ 
 		if (CurrentHealth < 0)
 		{
 			CurrentHealth = 0;
@@ -112,7 +105,7 @@ public class Hearts : MonoBehaviour
 		dmg -= negDMG % 0.5;
 		CurrentHealth -= dmg;
 
-		canvasScript.SpawnIndicator(transform, direction);
+		canvasScript.SpawnIndicator(player.transform, direction);
 
 		return CurrentHealth <= 0;
 	}
