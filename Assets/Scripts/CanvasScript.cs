@@ -8,12 +8,11 @@ public class CanvasScript : MonoBehaviour
 
     public void SpawnIndicator(Transform player, Vector3 source)
     {
-        var direction = player.position - source;
-        //var angle = Vector3.Angle(Vector3.forward, player.position);
-        var angle = Vector3.Angle(player.position, source);
+        var direction = new Vector2(player.position.x - source.x, player.position.z - source.z);
+        var angle = Vector2.SignedAngle(direction, new Vector2(player.forward.x, player.forward.z));
 
         var indicator = Instantiate(HitIndicator, transform.position, Quaternion.identity);
         indicator.transform.parent = gameObject.transform;
-        indicator.transform.Rotate(0, 0, angle);
+        indicator.transform.Rotate(0, 0, -angle + 180);
     }
 }

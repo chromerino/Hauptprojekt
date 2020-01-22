@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HitIndicator : MonoBehaviour
 {
     private float spawnTime;
-    private float despawnTime = 10;
+    private float despawnTime = 1;
     private Image image;
 
     // Start is called before the first frame update
