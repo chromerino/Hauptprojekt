@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [BoltGlobalBehaviour]
 public class OnlineEvents : Bolt.GlobalEventListener
@@ -26,11 +27,45 @@ public class OnlineEvents : Bolt.GlobalEventListener
 
     public override void OnEvent(Attack evnt)
     {
-        if (evnt.Target.IsOwner)
+        var attackerScript = evnt.Attacker.gameObject.GetComponent<PlayerStartScript>();
+        attackerScript.PlayWeaponSound(evnt.SoundIndex);
+
+        if (evnt.Target != null || evnt.Target.IsOwner)
         {
             var targetScript = evnt.Target.gameObject.GetComponent<PlayerStartScript>().healthbar.GetComponent<Hearts>();
-            targetScript.receiveDMG(evnt.Damage);
+            bool died = targetScript.receiveDMG(evnt.Damage, attackerScript.PlayerCharacter.transform.position);
+            if (died)
+            {
+                evnt.Attacker.GetState<IPlayerState>().kills++;
+            }
         }
         // Sonstige Effekte
+    }
+
+    public override void OnEvent(FootStepSound evnt)
+    {
+        if (evnt.Player.IsOwner) return;
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
+        script.PlayFootstepSound();
+    }
+
+    public override void OnEvent(JumpSound evnt)
+    {
+        if (evnt.Player.IsOwner) return;
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
+        script.PlayJumpSound();
+    }
+
+    public override void OnEvent(LandingSound evnt)
+    {
+        if (evnt.Player.IsOwner) return;
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
+        script.PlayLandingSound();
+    }
+
+    public override void OnEvent(PlayerVisibilityChanged evnt)
+    {
+        var script = evnt.Player.gameObject.GetComponent<PlayerStartScript>();
+        script.TogglePlayerVisibility(evnt.Visible);
     }
 }

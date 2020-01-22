@@ -21,6 +21,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Quaternion m_CameraTargetRot;
         private bool m_cursorIsLocked = true;
 
+        private float sideRecoil;
+        private float upRecoil;
+
         public void Init(Transform character, Transform camera)
         {
             m_CharacterTargetRot = character.localRotation;
@@ -30,8 +33,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void LookRotation(Transform character, Transform camera)
         {
-            float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            float yRot = sideRecoil + CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+            float xRot = upRecoil + CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+
+            sideRecoil = 0;
+            upRecoil = 0;
 
             m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
@@ -111,7 +117,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             return q;
         }
-        
 
+        public void SetRecoil(float side, float up)
+        {
+            sideRecoil += side;
+            upRecoil += up;
+        }
     }
 }

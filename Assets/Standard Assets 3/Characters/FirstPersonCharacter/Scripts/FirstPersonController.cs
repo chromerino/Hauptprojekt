@@ -129,9 +129,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
+        public BoltEntity GetEntity()
+        {
+            return entity;
+        }
+
+        public MouseLook GetMouseLook()
+        {
+            return m_MouseLook;
+        }
 
         private void PlayLandingSound()
         {
+            LandingSound evnt = LandingSound.Create(Bolt.GlobalTargets.Others);
+            evnt.Player = entity;
+            evnt.Send();
+
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
@@ -209,6 +222,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayJumpSound()
         {
+            JumpSound evnt = JumpSound.Create(Bolt.GlobalTargets.Others);
+            evnt.Player = entity;
+            evnt.Send();
+
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
         }
@@ -239,6 +256,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
+
+            FootStepSound evnt = FootStepSound.Create(Bolt.GlobalTargets.Others);
+            evnt.Player = entity;
+            evnt.Send();
+
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);

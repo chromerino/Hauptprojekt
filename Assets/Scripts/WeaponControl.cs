@@ -6,6 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 {
+    [SerializeField] private GameObject FirstPersonObject;
     [SerializeField] private GameObject Player;
     public GameObject[] MainWeapons;
     public GameObject[] SecondaryWeapons;
@@ -23,20 +24,30 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public GameObject EquipmentMenu;
     public GameObject ammoText;
     public GameObject World;
+
+    private float nextPossibleAttack;
+    private bool stoppedShooting;
     
     override public void Attached()
     {
+        nextPossibleAttack = Time.time;
         EquipmentMenu.SetActive(false);
+        stoppedShooting = true;
     } 
 
     override public void SimulateOwner()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyUp(KeyCode.Mouse0))
         {
-            
-            if(Time.time>= currentWeaponsStats.getBorder())
+            stoppedShooting = true;
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0) && (currentWeaponsStats.automatic || stoppedShooting))
+        {
+            stoppedShooting = false;
+            if (Time.time >= nextPossibleAttack)
             {
+                nextPossibleAttack = Time.time + 0.15f;
                 if (currentWeaponsStats.type == WeaponScript.WeaponType.Melee)
                 {
                     meleeAttack();
@@ -84,28 +95,50 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public void meleeAttack()
     {
         GameObject target = GetTarget(3);
-        if (target == null) return;
-        Debug.Log("attacking " + target.ToString());
-        var targetScript = target.GetComponentInParent<PlayerStartScript>();
-        if (targetScript == null) return;
-        var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
+        var evnt = Attack.Create(Bolt.GlobalTargets.Others);
+        int weaponIndex = currentWeaponsStats.reloadSoundId;
+
+        if (target != null)
+        {
+            var targetScript = target.GetComponentInParent<PlayerStartScript>();
+            if (targetScript != null)
+            {
+                evnt.Target = targetScript.entity;
+                weaponIndex = currentWeaponsStats.ShotSoundId;
+            }
+        }
+        
         evnt.Attacker = entity;
-        evnt.Target = targetScript.entity;
         evnt.Damage = (float)currentWeaponsStats.Damage;
+
+        evnt.SoundIndex = weaponIndex;
+        FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(weaponIndex);
+
         evnt.Send();
     }
     public void shoot()
     {
         GameObject target = GetTarget();
-        Debug.Log("attacking " + target);
-        if (target == null) return;
-        var targetScript = target.GetComponentInParent<PlayerStartScript>();
-        if (targetScript == null) return;
-        var evnt = Attack.Create(Bolt.GlobalTargets.Everyone);
+        var evnt = Attack.Create(Bolt.GlobalTargets.Others);
+        if (target != null)
+        {
+            var targetScript = target.GetComponentInParent<PlayerStartScript>();
+            if (targetScript != null)
+            {
+                evnt.Target = targetScript.entity;
+            }
+        }
+
         evnt.Attacker = entity;
-        evnt.Target = targetScript.entity;
         evnt.Damage = (float)currentWeaponsStats.Damage;
+
+        evnt.SoundIndex = currentWeaponsStats.ShotSoundId;
+        FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(currentWeaponsStats.ShotSoundId);
+
         evnt.Send();
+
+        var mouseLook = Player.GetComponent<FirstPersonController>().GetMouseLook();
+        mouseLook.SetRecoil(Random.Range(currentWeaponsStats.sideRecoilLimit * -1, currentWeaponsStats.sideRecoilLimit), Random.Range(0.1f, currentWeaponsStats.upRecoilLimit));
     }
     public void updateAmmoText(){
         string pen = "Ammo: "+currentWeaponsStats.ammoInMagazine+"/"+currentWeaponsStats.currentAmmo;
@@ -243,7 +276,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 
     private GameObject GetTarget()
     {
-        Camera firstPersonCamera = Player.GetComponent<Camera>();
+        Camera firstPersonCamera = FirstPersonObject.GetComponent<Camera>();
         RaycastHit hit;
 
         Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit);
@@ -255,7 +288,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 
     private GameObject GetTarget(float range)
     {
-        Camera firstPersonCamera = Player.GetComponent<Camera>();
+        Camera firstPersonCamera = FirstPersonObject.GetComponent<Camera>();
         RaycastHit hit;
 
         Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out hit, range);

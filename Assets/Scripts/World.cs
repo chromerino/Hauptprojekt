@@ -269,7 +269,12 @@ public class World : MonoBehaviour
 											spawnPosZ);
 
 		*/
-											player.SetActive(false);
+		var evnt = PlayerVisibilityChanged.Create(Bolt.GlobalTargets.Others);
+		evnt.Player = player.GetComponent<FirstPersonController>().GetEntity();
+		evnt.Visible = false;
+		evnt.Send();
+
+		player.SetActive(false);
 		
 		BuildChunkAt((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
@@ -326,6 +331,12 @@ public class World : MonoBehaviour
     {
 		FirstPersonController a = player.GetComponent<FirstPersonController>();
 		a.freeMouse();
+
+		var evnt = PlayerVisibilityChanged.Create(Bolt.GlobalTargets.Others);
+		evnt.Player = player.GetComponent<FirstPersonController>().GetEntity();
+		evnt.Visible = false;
+		evnt.Send();
+
 		player.SetActive(false);
 	}
 	public void deactivate_ALIVE_UI()
@@ -353,6 +364,11 @@ public class World : MonoBehaviour
 	}
 	public void spawnPlayer()
     {
+		var evnt = PlayerVisibilityChanged.Create(Bolt.GlobalTargets.Others);
+		evnt.Player = player.GetComponent<FirstPersonController>().GetEntity();
+		evnt.Visible = true;
+		evnt.Send();
+
 		player.SetActive(true);
 		player.GetComponent<FirstPersonController>().bindMouse();
 		activate_ALIVE_UI();

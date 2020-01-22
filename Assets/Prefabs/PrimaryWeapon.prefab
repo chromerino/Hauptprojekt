@@ -216,14 +216,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0.5
-  fireCD: 0.05
+  automatic: 1
+  fireCD: 0.15
   type: 0
   magazineSize: 20
   ammoInMagazine: 20
   ammoMax: 100
   currentAmmo: 100
-  reloadTime: 5
+  reloadTime: 2.5
   timeBorder: 0
+  sideRecoilLimit: 2.5
+  upRecoilLimit: 8
+  ShotSoundId: 0
+  reloadSoundId: -1
 --- !u!1 &6735710992563041078
 GameObject:
   m_ObjectHideFlags: 0
