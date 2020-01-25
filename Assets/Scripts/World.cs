@@ -32,7 +32,7 @@ public class World : MonoBehaviour
 	public static CoroutineQueue queue;
 	public bool spawnable = true;
 
-	public bool arenaIsReady=false; 
+	public bool arenaIsReady=false;
 
 	public Vector3 lastbuildPos;
 

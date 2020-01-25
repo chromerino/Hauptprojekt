@@ -140,9 +140,17 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         var mouseLook = Player.GetComponent<FirstPersonController>().GetMouseLook();
         mouseLook.SetRecoil(Random.Range(currentWeaponsStats.sideRecoilLimit * -1, currentWeaponsStats.sideRecoilLimit), Random.Range(0.1f, currentWeaponsStats.upRecoilLimit));
     }
-    public void updateAmmoText(){
-        string pen = "Ammo: "+currentWeaponsStats.ammoInMagazine+"/"+currentWeaponsStats.currentAmmo;
-        ammoText.GetComponent<Text>().text=pen;
+    public void updateAmmoText()
+    {
+        try
+        {
+            string pen = "Ammo: " + currentWeaponsStats.ammoInMagazine + "/" + currentWeaponsStats.currentAmmo;
+            ammoText.GetComponent<Text>().text = pen;
+        }
+        catch
+        {
+            return;
+        }
     }
     public void vanish()
     {

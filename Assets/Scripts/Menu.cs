@@ -9,6 +9,8 @@ public class Menu : Bolt.GlobalEventListener
     [SerializeField] GameObject clientMenu;
     [SerializeField] GameObject lobbyname;
     [SerializeField] GameObject joinname;
+    [SerializeField] GameObject createPlayerName;
+    [SerializeField] GameObject joinPlayerName;
 
     public void NavigateToHostMenu()
     {
@@ -37,16 +39,23 @@ public class Menu : Bolt.GlobalEventListener
 
     public void StartServer()
     {
-        if (string.IsNullOrWhiteSpace(lobbyname.GetComponent<UnityEngine.UI.Text>().text))
+        string playerName = createPlayerName.GetComponent<UnityEngine.UI.Text>().text;
+        if (string.IsNullOrWhiteSpace(lobbyname.GetComponent<UnityEngine.UI.Text>().text) || string.IsNullOrWhiteSpace(playerName))
         {
             return;
         }
+
+        NetworkCallbacks.playerName = playerName;
         BoltLauncher.StartServer();
     }
 
     public void StartClient()
     {
+        string playerName = joinPlayerName.GetComponent<UnityEngine.UI.Text>().text;
         string matchName = joinname.GetComponent<UnityEngine.UI.Text>().text;
+        if (string.IsNullOrWhiteSpace(playerName) || string.IsNullOrWhiteSpace(matchName)) return;
+
+        NetworkCallbacks.playerName = playerName;
         BoltMatchmaking.JoinSession(matchName);
     }
 

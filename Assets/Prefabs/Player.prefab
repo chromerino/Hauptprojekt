@@ -7433,7 +7433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.15}
   m_AnchorMax: {x: 1, y: 0.35}
-  m_AnchoredPosition: {x: 0, y: -5.0000153}
+  m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 0, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2804933578744973177
@@ -11023,6 +11023,7 @@ MonoBehaviour:
   fadennkreuz: {fileID: 4938904097157475229}
   spawnable: 1
   arenaIsReady: 0
+  uiCanvas: {fileID: 7350835734714629192}
   lastbuildPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7030878275244588360
 GameObject:

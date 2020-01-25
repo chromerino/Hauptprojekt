@@ -40,6 +40,8 @@ public class OnlineEvents : Bolt.GlobalEventListener
             }
         }
         // Sonstige Effekte
+
+        if(evnt.Target != null) Debug.Log(evnt.Attacker.GetState<IPlayerState>().name + " hat " + evnt.Target.GetState<IPlayerState>().name + " angegriffen");
     }
 
     public override void OnEvent(FootStepSound evnt)
