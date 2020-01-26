@@ -6,11 +6,19 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 {
+    public GameObject[] WeaponUI;
     [SerializeField] private GameObject FirstPersonObject;
     [SerializeField] private GameObject Player;
     public GameObject[] MainWeapons;
     public GameObject[] SecondaryWeapons;
     public GameObject[] MeleeWeapons;
+    public Sprite[] MainWeaponsPic;
+    public Sprite[] SecondaryWeaponsPic;
+    public Sprite[] MeleeWeaponsPic;
+    public Sprite[] MainWeaponsPicSelected;
+    public Sprite[] SecondaryWeaponsPicSelected;
+    public Sprite[] MeleeWeaponsPicSelected;
+    public GameObject control;
     private int currentMainWeapon;
     private int currentSecondaryWeapon;
     private int currentMeleeWeapon;
@@ -24,6 +32,8 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     public GameObject EquipmentMenu;
     public GameObject ammoText;
     public GameObject World;
+    private Image sr;
+
 
     private float nextPossibleAttack;
     private bool stoppedShooting;
@@ -40,14 +50,15 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
             stoppedShooting = true;
+            
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && (currentWeaponsStats.automatic || stoppedShooting))
-        {
+        { 
             stoppedShooting = false;
             if (Time.time >= nextPossibleAttack)
             {
-                nextPossibleAttack = Time.time + 0.15f;
+                
                 if (currentWeaponsStats.type == WeaponScript.WeaponType.Melee)
                 {
                     meleeAttack();
@@ -58,22 +69,35 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
                     if (currentWeaponsStats.ammoInMagazine > 0)
                     {
                         shoot();
+                        nextPossibleAttack = Time.time + currentWeaponsStats.fireCD;
                         Debug.Log("bumm!!! (shooting)");
                         Debug.Log("Ammo: "+ currentWeaponsStats.ammoInMagazine+"/"+ currentWeaponsStats.magazineSize);
                         currentWeaponsStats.ammoInMagazine--;
                     }else if (currentWeaponsStats.currentAmmo > 0)
                     {
                         currentWeaponsStats.reload();
-                        
+                        nextPossibleAttack = currentWeaponsStats.timeBorder;
+
                     }
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && currentMainWeapon==2 && currentWeaponsStats.type== WeaponScript.WeaponType.Primary)
+        {
+
+            control.GetComponent<CameraZoom>().snipe();
+        }
+        else if(currentWeaponsStats.type != WeaponScript.WeaponType.Primary)
+        {
+            control.GetComponent<CameraZoom>().reset();
+        }
+        
         if (Input.GetKeyDown(KeyCode.R))
         {
             
             currentWeaponsStats.reload();
             currentWeaponsStats.setBorder();
+            nextPossibleAttack = currentWeaponsStats.timeBorder;
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -115,6 +139,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         FirstPersonObject.GetComponentInParent<PlayerStartScript>().PlayWeaponSound(weaponIndex);
 
         evnt.Send();
+        nextPossibleAttack = currentWeaponsStats.timeBorder;
     }
     public void shoot()
     {
@@ -139,6 +164,7 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
 
         var mouseLook = Player.GetComponent<FirstPersonController>().GetMouseLook();
         mouseLook.SetRecoil(Random.Range(currentWeaponsStats.sideRecoilLimit * -1, currentWeaponsStats.sideRecoilLimit), Random.Range(0.1f, currentWeaponsStats.upRecoilLimit));
+        nextPossibleAttack = currentWeaponsStats.timeBorder;
     }
     public void updateAmmoText()
     {
@@ -160,16 +186,40 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
     {
         currentlyEquippedWeapon = MainWeapons[currentMainWeapon];
         currentWeaponsStats=currentlyEquippedWeapon.GetComponent<WeaponScript>();
+        sr = WeaponUI[2].GetComponent<Image>();
+        sr.sprite = MeleeWeaponsPic[currentMeleeWeapon];
+        sr = WeaponUI[0].GetComponent<Image>();
+        sr.sprite = MainWeaponsPicSelected[currentMainWeapon];
+        sr = WeaponUI[1].GetComponent<Image>();
+        sr.sprite = SecondaryWeaponsPic[currentSecondaryWeapon];
+        nextPossibleAttack = currentWeaponsStats.timeBorder;
     }
     public void equipSecondaryWeapon()
     {
         currentlyEquippedWeapon = SecondaryWeapons[currentSecondaryWeapon];
         currentWeaponsStats = currentlyEquippedWeapon.GetComponent<WeaponScript>();
+        sr = WeaponUI[2].GetComponent<Image>();
+        sr.sprite = MeleeWeaponsPic[currentMeleeWeapon];
+        sr = WeaponUI[0].GetComponent<Image>();
+        sr.sprite = MainWeaponsPic[currentMainWeapon];
+        sr = WeaponUI[1].GetComponent<Image>();
+        sr.sprite = SecondaryWeaponsPicSelected[currentSecondaryWeapon];
+        nextPossibleAttack = currentWeaponsStats.timeBorder;
     }
     public void equipMeleeWeapon()
     {
         currentlyEquippedWeapon = MeleeWeapons[currentMeleeWeapon];
         currentWeaponsStats = currentlyEquippedWeapon.GetComponent<WeaponScript>();
+        
+        
+        sr = WeaponUI[2].GetComponent<Image>();
+        sr.sprite = MeleeWeaponsPicSelected[currentMeleeWeapon];
+        sr = WeaponUI[0].GetComponent<Image>();
+        sr.sprite= MainWeaponsPic [currentMainWeapon];
+        sr = WeaponUI[1].GetComponent<Image>();
+        sr.sprite = SecondaryWeaponsPic[currentSecondaryWeapon];
+        nextPossibleAttack = currentWeaponsStats.timeBorder;
+
     }
     public void openMenu()
     {
