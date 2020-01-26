@@ -230,7 +230,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
             Transform model = GameObject.Find("MCCharaFPS").GetComponent<Transform>();
-            mouseLook.LookRotation (transform, cam.transform,model);
+            mouseLook.LookRotation (transform, cam.transform);
 
             if (m_IsGrounded || advancedSettings.airControl)
             {
