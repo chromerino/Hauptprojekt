@@ -45,19 +45,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if(clampVerticalRotation)
                 m_CameraTargetRot = ClampRotationAroundXAxis (m_CameraTargetRot);
 
-            if (smooth)
+            if(smooth)
             {
-                character.localRotation = Quaternion.Slerp(character.localRotation, m_CharacterTargetRot,
+                character.localRotation = Quaternion.Slerp (character.localRotation, m_CharacterTargetRot,
                     smoothTime * Time.deltaTime);
-                camera.localRotation = Quaternion.Slerp(camera.localRotation, m_CameraTargetRot,
+                camera.localRotation = Quaternion.Slerp (camera.localRotation, m_CameraTargetRot,
                     smoothTime * Time.deltaTime);
-                
-                    }
+            }
             else
             {
                 character.localRotation = m_CharacterTargetRot;
                 camera.localRotation = m_CameraTargetRot;
-                
             }
 
             UpdateCursorLock();
