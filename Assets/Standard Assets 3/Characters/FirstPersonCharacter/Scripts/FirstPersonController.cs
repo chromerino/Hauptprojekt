@@ -39,6 +39,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject thirdPersonModell;
 		[SerializeField] private int movementMode;
 		[SerializeField] private int previousMovementMode;
+        [SerializeField] private int animationMode;
+        [SerializeField] private WeaponScript.WeaponType Weapontype;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
@@ -102,7 +104,62 @@ namespace UnityStandardAssets.Characters.FirstPerson
           GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
+        
+        /*
+         * animationMode Legende:
+         * 0= no animation
+         * 1= stehen mit Primary
+         * 2= stehen mit secondary
+         * 3= stehen mit Melee
+         * 4= laufen mit Primary
+         * 5= laufen mit Secondary
+         * 6= laufen mit Melee
+         * */
+        public void updateAnimationMode()
+        {
+            Weapontype=GameObject.Find("WeaponsMenu").GetComponent<WeaponControl>().getCurrentWeapon().GetComponent<WeaponScript>().GetWeaponType();
+            
+            if(!isStanding)
+            {
+                if(movementMode==2)
+                {                  
+                    if(Weapontype==WeaponScript.WeaponType.Primary)
+                    {
+                        animationMode = 4;
+                    }else if(Weapontype==WeaponScript.WeaponType.Secondary)
+                    {
+                        animationMode = 5;
+                    }
+                    else if(Weapontype==WeaponScript.WeaponType.Melee)
+                    {
+                        animationMode = 6;
+                    }
+                }
+                
+            }
+            else
+            {
+                    if (Weapontype==WeaponScript.WeaponType.Primary)
+                    {
+                        animationMode = 1;
+                    }
+                    else if (Weapontype==WeaponScript.WeaponType.Secondary)
+                    {
+                        animationMode = 2;
+                    }
+                    else
+                    {
+                        animationMode = 3;
+                    }
+            }
+                
+        }
 
+        public int getAnimationMode()
+        {
+            return animationMode;
+        }
+        
         public override void SimulateOwner()
         {
             if(!entity.IsOwner) return;
@@ -217,6 +274,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             
             UpdateMovementMode();
+            updateAnimationMode();
         }
 
 
@@ -336,6 +394,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+            
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 
