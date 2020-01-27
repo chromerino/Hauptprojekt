@@ -9,10 +9,13 @@ public class animator : MonoBehaviour
     public int mode;
 
     // Update is called once per frame
+    private void Start()
+    {
+        anim = GetComponent<Animation>();
+    }
     void Update()
     {
         mode = GameObject.Find("FPSController").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().getAnimationMode();
-        anim.CrossFade("Idle");
         /*
          * animationMode Legende:
          * 0= no animation
@@ -23,46 +26,46 @@ public class animator : MonoBehaviour
          * 5= laufen mit Secondary
          * 6= laufen mit Melee
          * */
-
+        
         switch (mode)
         {
             case 0:
-                anim.CrossFade("Idle");
+                anim.Play("Char-Bones|Idle");
                 break;
             case 1:
-                if (anim.IsPlaying("idlewrifle") == false)
+                if (anim.IsPlaying("Char-Bones|idlewrifle") == false)
                 { 
-                anim.CrossFade("idlewrifle");
+                anim.Play("Char-Bones|idlewrifle");
                 }
                 break;
             case 2:
-                if (anim.IsPlaying("idlewpistol") == false)
+                if (anim.IsPlaying("Char-Bones|idlewpistol") == false)
                 {
-                    anim.CrossFade("idlewpistol");
+                    anim.Play("Char-Bones|idlewpistol");
                 }
                 break;
             case 3:
-                if (anim.IsPlaying("idlewknife") == false)
+                if (anim.IsPlaying("Char-Bones|idlewknife") == false)
                 {
-                    anim.CrossFade("idlewKnife");
+                    anim.Play("Char-Bones|idlewKnife");
                 }
                 break;
             case 4:
-                if (anim.IsPlaying("walkwrifle") == false)
+                if (anim.IsPlaying("Char-Bones|walkwrifle") == false)
                 {
-                    anim.CrossFade("walkwrifle");
+                    anim.Play("Char-Bones|walkwrifle");
                 }
                 break;
             case 5:
-                if (anim.IsPlaying("walkwpistol") == false)
+                if (anim.IsPlaying("Char-Bones|walkwpistol") == false)
                 {
-                    anim.CrossFade("walkwpistol");
+                    anim.Play("Char-Bones|walkwPistol");
                 }
                 break;
             case 6:
-                if (anim.IsPlaying("walkwknife") == false)
+                if (anim.IsPlaying("Char-Bones|walkwknife") == false)
                 {
-                    anim.CrossFade("walkwknife");
+                    anim.Play("Char-Bones|walkwKnife");
                 }
                 break;
         }

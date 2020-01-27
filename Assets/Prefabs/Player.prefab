@@ -3625,6 +3625,35 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!111 &7580949343489085814
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4763574912968607988}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: -3660673087794213678, guid: 676a495c9913c3648a1e3706a08bdf50,
+    type: 3}
+  m_Animations:
+  - {fileID: -3660673087794213678, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 3321429132556623476, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 8280529293527667796, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 6776630611755096778, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: -4218545847184610073, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: -8530329500995245135, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 7505002647705969713, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 3814556297518466533, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 1295814983887101897, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: -1953098245398425376, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 1987032049295255987, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: 4720036282044876159, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  - {fileID: -7576877801334528455, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &2517670608658721475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3651,34 +3680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 7580949343489085814}
---- !u!111 &7580949343489085814
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4763574912968607988}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: -3660673087794213678, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 3321429132556623476, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 8280529293527667796, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 6776630611755096778, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: -4218545847184610073, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: -8530329500995245135, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 7505002647705969713, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 3814556297518466533, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 1295814983887101897, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: -1953098245398425376, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 1987032049295255987, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: 4720036282044876159, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  - {fileID: -7576877801334528455, guid: 676a495c9913c3648a1e3706a08bdf50, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  mode: 0
 --- !u!1 &4838438262389649392
 GameObject:
   m_ObjectHideFlags: 0
