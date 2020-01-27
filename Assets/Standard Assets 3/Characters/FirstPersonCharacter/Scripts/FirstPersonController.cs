@@ -41,7 +41,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField] private int previousMovementMode;
         [SerializeField] private int animationMode;
         [SerializeField] private WeaponScript.WeaponType Weapontype;
-        [SerializeField] private int previousAnimationMode;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
@@ -157,6 +156,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
                 
         }
+
+        public int getAnimationMode()
+        {
+            return animationMode;
+        }
         
         public override void SimulateOwner()
         {
@@ -259,6 +263,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             
             UpdateMovementMode();
+            updateAnimationMode();
         }
 
 
