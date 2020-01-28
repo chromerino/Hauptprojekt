@@ -39,6 +39,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private GameObject thirdPersonModell;
 		[SerializeField] private int movementMode;
 		[SerializeField] private int previousMovementMode;
+        [SerializeField] private int animationMode;
+        [SerializeField] private WeaponScript.WeaponType Weapontype;
         private Camera m_Camera;
         [SerializeField] private bool m_Jump;
         private float m_YRotation;
@@ -102,6 +104,55 @@ namespace UnityStandardAssets.Characters.FirstPerson
           GameObject.Find("StaminaBar").GetComponent<Stamina>().setMode(movementMode);
 		}
 		}
+        public void updateAnimationMode()
+        {
+            if (!isStanding)
+            {
+
+                if (movementMode == 2)
+                {
+                    if (Weapontype == 0)
+                    {
+                        animationMode = 1;
+                    }
+                    else if (Weapontype == 1)
+                    {
+                        animationMode = 6;
+                    }
+                    else if (Weapontype == 2)
+                    {
+                        animationMode = 7;
+                    }
+                    else if (Weapontype == 3)
+                    {
+                        animationMode = 8;
+                    }
+                }
+
+            }
+            else
+            {
+
+                if (Weapontype != 0)
+                {
+                    if (Weapontype == 1)
+                    {
+                        animationMode = 3;
+                    }
+                    else if (Weapontype == 2)
+                    {
+                        animationMode = 4;
+                    }
+                    else
+                    {
+                        animationMode = 5;
+                    }
+                }
+                else
+                {
+                    animationMode = 0;
+                }
+            }
 
         public override void SimulateOwner()
         {

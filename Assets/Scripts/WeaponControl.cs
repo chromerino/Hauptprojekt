@@ -43,7 +43,11 @@ public class WeaponControl : Bolt.EntityBehaviour<IPlayerState>
         nextPossibleAttack = Time.time;
         EquipmentMenu.SetActive(false);
         stoppedShooting = true;
-    } 
+    }
+    public GameObject getCurrentWeapon()
+    {
+        return currentlyEquippedWeapon;
+    }
 
     override public void SimulateOwner()
     {
