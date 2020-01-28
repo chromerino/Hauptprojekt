@@ -106,53 +106,51 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
         public void updateAnimationMode()
         {
-            if (!isStanding)
-            {
+            
+                Weapontype = GameObject.Find("WeaponsMenu").GetComponent<WeaponControl>().getCurrentWeapon().GetComponent<WeaponScript>().GetWeaponType();
 
-                if (movementMode == 2)
+                if (!isStanding)
                 {
-                    if (Weapontype == 0)
+                    if (movementMode == 2)
                     {
-                        animationMode = 1;
+                        if (Weapontype == WeaponScript.WeaponType.Primary)
+                        {
+                            animationMode = 4;
+                        }
+                        else if (Weapontype == WeaponScript.WeaponType.Secundary)
+                        {
+                            animationMode = 5;
+                        }
+                        else if (Weapontype == WeaponScript.WeaponType.Melee)
+                        {
+                            animationMode = 6;
+                        }
                     }
-                    else if (Weapontype == 1)
-                    {
-                        animationMode = 6;
-                    }
-                    else if (Weapontype == 2)
-                    {
-                        animationMode = 7;
-                    }
-                    else if (Weapontype == 3)
-                    {
-                        animationMode = 8;
-                    }
-                }
 
-            }
-            else
-            {
-
-                if (Weapontype != 0)
-                {
-                    if (Weapontype == 1)
-                    {
-                        animationMode = 3;
-                    }
-                    else if (Weapontype == 2)
-                    {
-                        animationMode = 4;
-                    }
-                    else
-                    {
-                        animationMode = 5;
-                    }
                 }
                 else
                 {
-                    animationMode = 0;
+                    if (Weapontype == WeaponScript.WeaponType.Primary)
+                    {
+                        animationMode = 1;
+                    }
+                    else if (Weapontype == WeaponScript.WeaponType.Secundary)
+                    {
+                        animationMode = 2;
+                    }
+                    else
+                    {
+                        animationMode = 3;
+                    }
                 }
-            }
+
+            
+        }
+        public int getAnimationMode()
+        {
+            updateAnimationMode();
+            return animationMode;
+        }
 
         public override void SimulateOwner()
         {
@@ -268,7 +266,75 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             
             UpdateMovementMode();
+            updateAnimationMode();// Start is called before the first frame update
+    public Animation anim;
+        public int mode;
+
+        // Update is called once per frame
+        private void Start()
+        {
+            anim = GetComponent<Animation>();
         }
+        void Update()
+        {
+            mode = GameObject.Find("FPSController").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().getAnimationMode();
+            /*
+             * animationMode Legende:
+             * 0= no animation
+             * 1= stehen mit Primary
+             * 2= stehen mit secondary
+             * 3= stehen mit Melee
+             * 4= laufen mit Primary
+             * 5= laufen mit Secondary
+             * 6= laufen mit Melee
+             * */
+
+            switch (mode)
+            {
+                case 0:
+                    anim.Play("Char-Bones|Idle");
+                    break;
+                case 1:
+                    if (anim.IsPlaying("Char-Bones|idlewrifle") == false)
+                    {
+                        anim.Play("Char-Bones|idlewrifle");
+                    }
+                    break;
+                case 2:
+                    if (anim.IsPlaying("Char-Bones|idlewpistol") == false)
+                    {
+                        anim.Play("Char-Bones|idlewpistol");
+                    }
+                    break;
+                case 3:
+                    if (anim.IsPlaying("Char-Bones|idlewknife") == false)
+                    {
+                        anim.Play("Char-Bones|idlewKnife");
+                    }
+                    break;
+                case 4:
+                    if (anim.IsPlaying("Char-Bones|walkwrifle") == false)
+                    {
+                        anim.Play("Char-Bones|walkwrifle");
+                    }
+                    break;
+                case 5:
+                    if (anim.IsPlaying("Char-Bones|walkwpistol") == false)
+                    {
+                        anim.Play("Char-Bones|walkwPistol");
+                    }
+                    break;
+                case 6:
+                    if (anim.IsPlaying("Char-Bones|walkwknife") == false)
+                    {
+                        anim.Play("Char-Bones|walkwKnife");
+                    }
+                    break;
+            }
+
+        }
+    
+    
 
 
         private void PlayJumpSound()

@@ -25,6 +25,10 @@ public class WeaponScript : MonoBehaviour
     {
         timeBorder = 0;
     }
+    public WeaponType GetWeaponType()
+    {
+        return type;
+    }
 
 
 
