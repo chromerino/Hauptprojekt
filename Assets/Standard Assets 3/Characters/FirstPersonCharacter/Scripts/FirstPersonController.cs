@@ -213,18 +213,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+            Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
             Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+                               m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
+            m_MoveDir.x = desiredMove.x * speed;
+            m_MoveDir.z = desiredMove.z * speed;
 
-            
+
             if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
@@ -239,34 +239,38 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+                m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
                 if (m_Jumping)
                 {
                     m_Jump = false;
                 }
             }
-            m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
+            m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
-            GameObject sb=GameObject.Find("StaminaBar");
-            int staminaAmount=0;
-           
-           if(sb.GetComponent<Stamina>()!=null){
-                staminaAmount=sb.GetComponent<Stamina>().stamina;
+            GameObject sb = GameObject.Find("StaminaBar");
+            int staminaAmount = 0;
+
+            if (sb.GetComponent<Stamina>() != null)
+            {
+                staminaAmount = sb.GetComponent<Stamina>().stamina;
             }
 
             if (staminaAmount >= 0 && !sb.GetComponent<Stamina>().isBlocked)
             {
-                canRun=true;
-            }else{
-                canRun=false;
+                canRun = true;
             }
-            
+            else
+            {
+                canRun = false;
+            }
+
             UpdateMovementMode();
             updateAnimationMode();// Start is called before the first frame update
+        }
     public Animation anim;
         public int mode;
 
